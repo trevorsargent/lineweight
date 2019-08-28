@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@github.com:trevorsargent/laamp.git",
   "author": "Trevor Sargent <trevor.a.sargent@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "node-tradfri-client": "^1.6.0"
+  }
 }
