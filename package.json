@@ -1,0 +1,8 @@
+{
+  "name": "laamp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:trevorsargent/laamp.git",
+  "author": "Trevor Sargent <trevor.a.sargent@gmail.com>",
+  "license": "MIT"
+}
