@@ -6,6 +6,7 @@ import {
   AccessoryTypes,
 } from 'node-tradfri-client'
 import { identity, psk } from '../config/gatewayCredentials'
+import { Server } from 'node-osc'
 
 const app = express()
 
@@ -17,30 +18,36 @@ const context: ServerContext = {
 const devicesByType = (type: AccessoryTypes) =>
   Array.from(context.devices.values()).filter((d) => d.type === type)
 
-const lightbulbs = devicesByType(AccessoryTypes.lightbulb)
+const server = new Server(3031, '0.0.0.0')
 
-interface ServerContext {
-  client: TradfriClient
-  devices: Map<number, Accessory>
-}
+server.on('message', function (msg: string[]) {
+  const address = msg[0].split('/').filter((x) => !!x)
+  const args = msg.slice(1)
 
-import { Client, Server } from 'node-osc'
+  console.log(address)
+  console.log(args)
 
-const client = new Client('127.0.0.1', 3333)
-var server = new Server(3333, '0.0.0.0')
+  if (address[0] === 'lamp') {
+    const poang = devicesByType(AccessoryTypes.lightbulb).find(
+      (l) => l.instanceId === 65537
+    ).lightList[0]
 
-server.on('message', function (msg) {
-  console.log(`Message: ${msg}`)
-  server.close()
-})
+    switch (address[1]) {
+      case 'at':
+        poang.setBrightness(
+          Number.parseFloat(args[0]),
+          Number.parseFloat(args[1])
+        )
+        break
 
-client.send('/hello', 'world', (err) => {
-  if (err) console.error(err)
-  client.close()
-})
-
-app.get('/gateway', async (req, res) => {
-  res.send(await discoverGateway())
+      case 'temp':
+        poang.setColorTemperature(
+          Number.parseFloat(args[0]),
+          Number.parseFloat(args[1])
+        )
+        break
+    }
+  }
 })
 
 app.get('/brightness/:brightness/:time', (req, res) => {
@@ -111,3 +118,8 @@ app.listen(PORT, async () => {
 
   console.log(`Server is running in http://localhost:${PORT}\n`)
 })
+
+interface ServerContext {
+  client: TradfriClient
+  devices: Map<number, Accessory>
+}
