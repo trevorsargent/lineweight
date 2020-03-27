@@ -14,8 +14,6 @@ const context: ServerContext = {
   devices: new Map<number, Accessory>(),
 }
 
-let interval
-
 const devicesByType = (type: AccessoryTypes) =>
   Array.from(context.devices.values()).filter((d) => d.type === type)
 
@@ -26,20 +24,33 @@ interface ServerContext {
   devices: Map<number, Accessory>
 }
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
+import { Client, Server } from 'node-osc'
+
+const client = new Client('127.0.0.1', 3333)
+var server = new Server(3333, '0.0.0.0')
+
+server.on('message', function (msg) {
+  console.log(`Message: ${msg}`)
+  server.close()
+})
+
+client.send('/hello', 'world', (err) => {
+  if (err) console.error(err)
+  client.close()
 })
 
 app.get('/gateway', async (req, res) => {
   res.send(await discoverGateway())
 })
 
-app.get('/brighnes/:brightness/:time', (req, res) => {
+app.get('/brightness/:brightness/:time', (req, res) => {
   const poang = devicesByType(AccessoryTypes.lightbulb).find(
     (l) => l.instanceId === 65537
   ).lightList[0]
 
-  const { brighnes, time } = req.params
+  const { brightness, time } = req.params
+  poang.setBrightness(brightness, time)
+  res.send()
 })
 
 app.get('/temp/:temp/:time', async (req, res) => {
