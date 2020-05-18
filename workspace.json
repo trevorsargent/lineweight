@@ -10,15 +10,80 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/laamp/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/laamp/**"]
+            "tsConfig": [
+              "libs/laamp/tsconfig.lib.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/laamp/**"
+            ]
+          }
+        }
+      }
+    },
+    "meatman": {
+      "root": "apps/meatman",
+      "sourceRoot": "apps/meatman/src",
+      "projectType": "application",
+      "prefix": "meatman",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/meatman",
+            "main": "apps/meatman/src/main.ts",
+            "tsConfig": "apps/meatman/tsconfig.app.json",
+            "assets": [
+              "apps/meatman/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/meatman/src/environments/environment.ts",
+                  "with": "apps/meatman/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "meatman:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/meatman/tsconfig.app.json",
+              "apps/meatman/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/meatman/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/meatman/jest.config.js",
+            "tsConfig": "apps/meatman/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/node"
   },
   "schematics": {
     "@nrwl/workspace": {
@@ -78,5 +143,6 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "defaultProject": "meatman"
 }
