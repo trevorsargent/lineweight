@@ -15,7 +15,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@lineweight/laamp": ["libs/laamp/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

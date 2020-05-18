@@ -1,6 +1,22 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "laamp": {
+      "root": "libs/laamp",
+      "sourceRoot": "libs/laamp/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/laamp/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/laamp/**"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "defaultCollection": "@nrwl/workspace"
   },
