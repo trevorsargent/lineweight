@@ -5,7 +5,7 @@ import {
   Accessory,
   AccessoryTypes,
 } from 'node-tradfri-client'
-import { identity, psk } from '../config/gatewayCredentials'
+import { identity, psk } from './config/gatewayCredentials'
 import { Server } from 'node-osc'
 
 const app = express()
