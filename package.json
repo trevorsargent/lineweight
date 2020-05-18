@@ -26,7 +26,10 @@
     "help": "nx help"
   },
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "node-osc": "^5.1.0",
+    "node-tradfri-client": "^2.1.6"
+  },
   "devDependencies": {
     "@nrwl/node": "^9.3.0",
     "@nrwl/workspace": "9.3.0",
