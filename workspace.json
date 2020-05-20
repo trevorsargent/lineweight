@@ -10,13 +10,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/laamp/tsconfig.lib.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/laamp/**"
-            ]
+            "tsConfig": ["libs/laamp/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/laamp/**"]
           }
         }
       }
@@ -34,9 +29,7 @@
             "outputPath": "dist/apps/meatman",
             "main": "apps/meatman/src/main.ts",
             "tsConfig": "apps/meatman/tsconfig.app.json",
-            "assets": [
-              "apps/meatman/src/assets"
-            ]
+            "assets": ["apps/meatman/src/assets"]
           },
           "configurations": {
             "production": {
@@ -65,10 +58,7 @@
               "apps/meatman/tsconfig.app.json",
               "apps/meatman/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/meatman/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/meatman/**"]
           }
         },
         "test": {
@@ -77,6 +67,53 @@
             "jestConfig": "apps/meatman/jest.config.js",
             "tsConfig": "apps/meatman/tsconfig.spec.json",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "rx-osc": {
+      "root": "libs/rx-osc",
+      "sourceRoot": "libs/rx-osc/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/rx-osc/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/rx-osc/**"]
+          }
+        }
+      }
+    },
+    "traffik": {
+      "root": "libs/traffik",
+      "sourceRoot": "libs/traffik/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/traffik/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/traffik/**"]
+          }
+        }
+      }
+    },
+    "types": {
+      "root": "libs/types",
+      "sourceRoot": "libs/types/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "libs/types/.eslintrc",
+            "tsConfig": ["libs/types/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/types/**"]
           }
         }
       }

@@ -8,7 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es2019",
     "module": "esnext",
     "typeRoots": ["node_modules/@types"],
     "lib": ["es2017", "dom"],
@@ -16,7 +16,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@lineweight/laamp": ["libs/laamp/src/index.ts"]
+      "@lineweight/laamp": ["libs/laamp/src/index.ts"],
+      "@lineweight/rx-osc": ["libs/rx-osc/src/index.ts"],
+      "@lineweight/traffik": ["libs/traffik/src/index.ts"],
+      "@lineweight/types": ["libs/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
