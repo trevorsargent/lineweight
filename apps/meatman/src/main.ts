@@ -1,4 +1,5 @@
-console.log('Hello World!');
-import { run } from '@lineweight/laamp';
+import { eventStream } from '@lineweight/rx-osc'
 
-run();
+eventStream({ bindingAddress: '0.0.0.0', port: 3031 }).subscribe((x) =>
+  console.log(x)
+)
