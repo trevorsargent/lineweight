@@ -1,4 +1,4 @@
-import type { LaampDevice } from '../devices/device.types'
+import type { LaampDevice } from '../../devices/device.types'
 import { ID } from '@lineweight/types'
 
 export interface LaampAdapter {
@@ -8,11 +8,10 @@ export interface LaampAdapter {
 }
 
 export type LaampAdapterEvent =
-  | LaampConnectionAliveEvent
-  | LaampConnectionFailedEvent
-  | LaampConnectionLostEvent
   | LaampDeviceRemovedEvent
   | LaampDeviceUpdatedEvent
+  | LaampGroupUpdatedEvent
+  | LaampGroupRemovedEvent
 
 export interface LaampDeviceUpdatedEvent {
   deviceUpdated: true
@@ -24,18 +23,17 @@ export interface LaampDeviceRemovedEvent {
   deviceId: ID
 }
 
-export interface LaampConnectionAliveEvent {
-  connectionAlive: true
+export interface LaampGroupUpdatedEvent {
+  groupUpdated: true
+  groupId: ID
+  deviceIds: ID[]
+  name: string
 }
 
-export interface LaampConnectionFailedEvent {
-  connectionFailed: true
+export interface LaampGroupRemovedEvent {
+  groupRemoved: true
+  groupId: ID
 }
-
-export interface LaampConnectionLostEvent {
-  connectionLost: true
-}
-
 export interface LaampErrorEvent {
   error: true
 }
