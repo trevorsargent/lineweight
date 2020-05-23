@@ -8,7 +8,7 @@ export const deviceUpdated = (
   const device: LaampLamp = {
     id: `${d.instanceId}`,
     color: d.lightList[0].color,
-    intensity: d.lightList[0].dimmer,
+    intensity: d.lightList[0].onOff ? d.lightList[0].dimmer : 0,
   }
   deviceUpdated$.next({
     deviceUpdated: true,
