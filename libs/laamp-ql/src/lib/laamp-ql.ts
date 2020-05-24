@@ -15,15 +15,13 @@ import {
   Query,
   Arg,
   buildSchema,
+  Mutation,
+  Args,
+  InputType,
   ID,
 } from 'type-graphql'
 
 import { connect } from '@lineweight/laamp'
-
-import {
-  identity,
-  psk,
-} from '../../../../apps/meatman/src/basestation.config/tradfri'
 
 import { ApolloServer } from 'apollo-server'
 import { Color as C, Intensity as I } from '@lineweight/types'
@@ -55,6 +53,9 @@ export class LaampLamp implements LL {
 
 @ObjectType()
 export class LaampGateway implements LG {
+  @Field()
+  id: string
+
   @Field((type) => LaampGatewayInfo)
   info: LGI
 
@@ -78,19 +79,30 @@ export class Laamp implements L {
   channels: LC[]
 }
 
+@InputType({ description: 'Identity and Passkey for Tradfri Gateway' })
+class ConnectGatewayInput {
+  @Field()
+  identity: string
+
+  @Field()
+  psk: string
+}
+
 @Resolver(Laamp)
 class LaampResolver {
-  constructor() {
-    connect({ identity, psk }).subscribe((l) => {
-      this.l = l
-    })
-  }
-
   l: L
 
   @Query((returns) => Laamp)
   laamp() {
     return this.l
+  }
+
+  @Mutation((returns) => Boolean)
+  connectGateway(@Arg('auth') auth: ConnectGatewayInput) {
+    connect(auth).subscribe((l) => {
+      this.l = l
+    })
+    return true
   }
 }
 
