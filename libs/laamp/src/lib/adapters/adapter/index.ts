@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs'
 import { scan } from 'rxjs/operators'
 import {
-  LaampAdapterEvent,
+  LaampGatewayEvent,
   LaampDeviceUpdatedEvent,
   LaampGroupUpdatedEvent,
 } from './adapter.types'
@@ -21,7 +21,7 @@ export const config$ = ({
 
 const scanForConfig = (
   adapter: LaampAdapterConfiguration,
-  event: LaampAdapterEvent
+  event: LaampGatewayEvent
 ) => {
   // DEVICE UPDATED
   if ((event as LaampDeviceUpdatedEvent).deviceUpdated) {

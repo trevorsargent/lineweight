@@ -1,6 +1,6 @@
-import { LaampAdapterSubject } from '@lineweight/laamp'
+import { LaampEventSubject } from '@lineweight/laamp'
 
-export const deviceRemoved = (deviceRemoved$: LaampAdapterSubject) => (
+export const deviceRemoved = (deviceRemoved$: LaampEventSubject) => (
   deviceId: number
 ) => {
   deviceRemoved$.next({

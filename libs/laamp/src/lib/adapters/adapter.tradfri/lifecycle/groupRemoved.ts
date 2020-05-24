@@ -1,8 +1,8 @@
-import { LaampAdapterSubject } from '@lineweight/laamp'
+import { LaampEventSubject } from '@lineweight/laamp'
 import { GroupRemovedCallback } from 'node-tradfri-client'
 
 export const groupRemoved = (
-  groupRemoved$: LaampAdapterSubject
+  groupRemoved$: LaampEventSubject
 ): GroupRemovedCallback => (groupId) => {
   groupRemoved$.next({
     groupRemoved: true,
