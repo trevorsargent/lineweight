@@ -6,6 +6,7 @@ import {
   LaampChannel as LC,
   LaampGatewayInfo as LGI,
   LaampLamp as LL,
+  LaampDevice as LD,
 } from '@lineweight/laamp'
 
 import {
@@ -24,15 +25,17 @@ import {
 import { connect } from '@lineweight/laamp'
 
 import { ApolloServer } from 'apollo-server'
-import { Color as C, Intensity as I } from '@lineweight/types'
+import { Color as C, Intensity as I, ID as StringID } from '@lineweight/types'
+
+let l: L
 
 @ObjectType()
 export class LaampGatewayInfo implements LGI {
   @Field()
   name: string
 
-  @Field()
-  id: string
+  @Field((type) => String)
+  id: StringID
 
   @Field()
   address: string
@@ -53,8 +56,8 @@ export class LaampLamp implements LL {
 
 @ObjectType()
 export class LaampGateway implements LG {
-  @Field()
-  id: string
+  @Field((type) => String)
+  id: StringID
 
   @Field((type) => LaampGatewayInfo)
   info: LGI
@@ -66,6 +69,9 @@ export class LaampGateway implements LG {
 
 @ObjectType()
 export class LaampChannel implements LC {
+  @Field((type) => String)
+  id: StringID
+
   @Field((type) => [LaampLamp])
   devices: LL[]
 }
@@ -90,26 +96,65 @@ class ConnectGatewayInput {
 
 @Resolver(Laamp)
 class LaampResolver {
-  l: L
-
   @Query((returns) => Laamp)
   laamp() {
-    return this.l
+    return l
   }
 
   @Mutation((returns) => Boolean)
   connectGateway(@Arg('auth') auth: ConnectGatewayInput) {
-    connect(auth).subscribe((l) => {
-      this.l = l
+    connect(auth).subscribe((ll) => {
+      l = ll
     })
     return true
+  }
+}
+
+@InputType()
+class LaampLampInput implements LL {
+  lamp: true
+
+  @Field()
+  id: string
+  @Field()
+  color: string
+  @Field()
+  intensity: number
+}
+
+@InputType({ description: 'Channel parameter values to set' })
+class SetChannelLampsInput implements LC {
+  @Field((type) => LaampLampInput)
+  devices: LL[]
+
+  id: StringID
+}
+
+@Resolver()
+export class LaampChannelResolver {
+  @Mutation((returns) => Boolean)
+  setChannel(@Arg('channel') channel: SetChannelLampsInput) {
+    console.log(channel)
+    return true
+  }
+
+  @Query((returns) => [LaampChannel])
+  channels() {
+    return l.channels
+  }
+
+  @Query((returns) => LaampChannel)
+  channel(@Arg('id') id: String) {
+    return l.channels.find((ch) => ch.id === id)
   }
 }
 
 const PORT = process.env.PORT || 4000
 
 export const start = async () => {
-  const schema = await buildSchema({ resolvers: [LaampResolver] })
+  const schema = await buildSchema({
+    resolvers: [LaampResolver, LaampChannelResolver],
+  })
 
   const server = new ApolloServer({
     schema,
