@@ -11,9 +11,8 @@ export interface LaampAdapterConfiguration {
 }
 
 export interface Laamp {
-  devices: LaampDevice[]
-  channels: LaampChannel[]
   gateways: LaampGateway[]
+  channels: LaampChannel[]
 }
 
 export type LaampEvent = LaampGatewayEvent
@@ -23,5 +22,5 @@ export type LaampEventStream = Observable<LaampEvent>
 export type LaampEventSubject = Subject<LaampEvent>
 
 export interface LaampChannel {
-  devices: LaampDevice
+  devices: LaampDevice[]
 }

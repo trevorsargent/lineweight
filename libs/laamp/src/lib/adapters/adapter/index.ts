@@ -1,14 +1,33 @@
-import { Observable } from 'rxjs'
-import { scan } from 'rxjs/operators'
+import { Observable, of, combineLatest } from 'rxjs'
+import { scan, map } from 'rxjs/operators'
 import {
   LaampGatewayEvent,
   LaampDeviceUpdatedEvent,
   LaampGroupUpdatedEvent,
 } from '../adapter.types'
-import { LaampAdapterConfiguration } from '../../types'
+import {
+  LaampAdapterConfiguration,
+  Laamp,
+  LaampDevice,
+  LaampChannel,
+} from '../../types'
 import { adapterEvents$ } from '../adapter.tradfri'
 import { onDeviceUpdated } from './lifecycle/onDeviceUpdated'
 import { onGroupUpdated } from './lifecycle/onGroupUpdated'
+
+export const connect = ({ identity, psk }): Observable<Laamp> => {
+  return config$({ identity, psk }).pipe(
+    map<LaampAdapterConfiguration, Laamp>(
+      (config: LaampAdapterConfiguration) => ({
+        gateways: [],
+        channels: config.devices.map<LaampChannel>((d: LaampDevice) => ({
+          id: d.id,
+          devices: [d],
+        })),
+      })
+    )
+  )
+}
 
 export const config$ = ({
   identity,

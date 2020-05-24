@@ -5,7 +5,7 @@ import { Observable } from 'rxjs'
 export interface LaampGateway {
   info: LaampGatewayInfo
   devices: LaampDevice[]
-  events: Observable<LaampGatewayEvent>
+  // events: Observable<LaampGatewayEvent>
 }
 
 export interface LaampGatewayInfo {

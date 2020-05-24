@@ -2,9 +2,7 @@ import { ID, Intensity, Color } from '@lineweight/types'
 
 export type LaampDeviceSet = Set<ID>
 
-export interface LaampDevice {
-  id: ID
-}
+export type LaampDevice = LaampLamp
 
 export interface LaampGroup {
   groupId: ID
@@ -12,7 +10,9 @@ export interface LaampGroup {
   deviceIds: ID[]
 }
 
-export interface LaampLamp extends LaampDevice {
+export interface LaampLamp {
+  lamp: true
+  id: ID
   color: Color
   intensity: Intensity
 }
