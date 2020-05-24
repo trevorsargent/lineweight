@@ -12,8 +12,8 @@ import {
   LaampChannel,
 } from '../../types'
 import { adapterEvents$ } from '../adapter.tradfri'
-import { onDeviceUpdated } from './lifecycle/onDeviceUpdated'
-import { onGroupUpdated } from './lifecycle/onGroupUpdated'
+import { onDeviceUpdated } from './events/onDeviceUpdated'
+import { onGroupUpdated } from './events/onGroupUpdated'
 
 export const connect = ({ identity, psk }): Observable<Laamp> => {
   return config$({ identity, psk }).pipe(

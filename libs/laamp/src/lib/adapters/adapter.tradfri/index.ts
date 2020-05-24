@@ -9,11 +9,11 @@ import {
   LaampGroupRemovedEvent,
   LaampGatewayEvent,
 } from '../adapter.types'
-import { deviceUpdated } from './lifecycle/deviceUpdated'
-import { deviceRemoved } from './lifecycle/deviceRemoved'
-import { error } from './lifecycle/error'
-import { groupUpdated } from './lifecycle/groupUpdated'
-import { groupRemoved } from './lifecycle/groupRemoved'
+import { deviceUpdated } from './hooks/deviceUpdated'
+import { deviceRemoved } from './hooks/deviceRemoved'
+import { error } from './hooks/error'
+import { groupUpdated } from './hooks/groupUpdated'
+import { groupRemoved } from './hooks/groupRemoved'
 
 const TRADFRI_ID = 'tradfri'
 
