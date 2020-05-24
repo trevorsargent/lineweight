@@ -117,6 +117,21 @@
           }
         }
       }
+    },
+    "laamp-ql": {
+      "root": "libs/laamp-ql",
+      "sourceRoot": "libs/laamp-ql/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/laamp-ql/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/laamp-ql/**"]
+          }
+        }
+      }
     }
   },
   "cli": {
