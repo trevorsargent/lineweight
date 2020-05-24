@@ -1,6 +1,6 @@
 import { LaampEventSubject } from '../../../types'
 import { GroupUpdatedCallback, Group } from 'node-tradfri-client'
-import { LaampGroupUpdatedEvent } from '../../adapter/adapter.types'
+import { LaampGroupUpdatedEvent } from '../../adapter.types'
 
 export const groupUpdated = (
   groupUpdated$: LaampEventSubject

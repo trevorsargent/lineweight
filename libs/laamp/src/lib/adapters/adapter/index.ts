@@ -4,7 +4,7 @@ import {
   LaampGatewayEvent,
   LaampDeviceUpdatedEvent,
   LaampGroupUpdatedEvent,
-} from './adapter.types'
+} from '../adapter.types'
 import { LaampAdapterConfiguration } from '../../types'
 import { adapterEvents$ } from '../adapter.tradfri'
 import { onDeviceUpdated } from './lifecycle/onDeviceUpdated'

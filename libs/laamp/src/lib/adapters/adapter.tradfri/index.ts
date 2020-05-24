@@ -8,7 +8,7 @@ import {
   LaampGroupUpdatedEvent,
   LaampGroupRemovedEvent,
   LaampGatewayEvent,
-} from '../adapter/adapter.types'
+} from '../adapter.types'
 import { deviceUpdated } from './lifecycle/deviceUpdated'
 import { deviceRemoved } from './lifecycle/deviceRemoved'
 import { error } from './lifecycle/error'

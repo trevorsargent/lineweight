@@ -1,3 +1,2 @@
 export * from './lib/types'
-export * from './lib/adapters/adapter'
-export * from './lib/adapters/adapter.tradfri'
+export * from './lib/adapters'

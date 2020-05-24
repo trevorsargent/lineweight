@@ -1,4 +1,4 @@
-import type { LaampDevice } from '../../devices/device.types'
+import type { LaampDevice } from '../devices/device.types'
 import { ID } from '@lineweight/types'
 import { Observable } from 'rxjs'
 

@@ -1,7 +1,9 @@
-import { LaampAdapterConfiguration } from '../../../types'
-import { LaampGroupUpdatedEvent } from '../adapter.types'
-import { LaampGroup } from '../../../devices/device.types'
 import { ID } from '@lineweight/types'
+import {
+  LaampGroup,
+  LaampAdapterConfiguration,
+  LaampGroupUpdatedEvent,
+} from '@lineweight/laamp'
 
 export const onGroupUpdated = (
   adapter: LaampAdapterConfiguration,

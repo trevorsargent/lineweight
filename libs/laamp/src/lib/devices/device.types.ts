@@ -1,5 +1,4 @@
-import { ID, Intensity } from '@lineweight/types'
-import { LaampEvent } from '../types'
+import { ID, Intensity, Color } from '@lineweight/types'
 
 export type LaampDeviceSet = Set<ID>
 
