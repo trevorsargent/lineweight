@@ -2,12 +2,12 @@ import { discoverGateway, TradfriClient } from 'node-tradfri-client'
 import { from, Observable, Subject, merge } from 'rxjs'
 import { map, switchMap } from 'rxjs/operators'
 import {
-  LaampAdapterEvent,
   LaampErrorEvent,
   LaampDeviceUpdatedEvent,
   LaampDeviceRemovedEvent,
   LaampGroupUpdatedEvent,
   LaampGroupRemovedEvent,
+  LaampGatewayEvent,
 } from '../adapter/adapter.types'
 import { deviceUpdated } from './lifecycle/deviceUpdated'
 import { deviceRemoved } from './lifecycle/deviceRemoved'
@@ -52,9 +52,9 @@ const gateway$ = () => from(discoverGateway(1000))
 export const adapterEvents$ = ({ identity, psk }) => {
   return gateway$().pipe(
     map((gateway) => new TradfriClient(gateway.addresses[0])),
-    switchMap<TradfriClient, Observable<LaampAdapterEvent>>((client) => {
+    switchMap<TradfriClient, Observable<LaampGatewayEvent>>((client) => {
       return from(client.connect(identity, psk)).pipe(
-        switchMap<boolean, Observable<LaampAdapterEvent>>((success) => {
+        switchMap<boolean, Observable<LaampGatewayEvent>>((success) => {
           if (!success) {
             throw 1
           }

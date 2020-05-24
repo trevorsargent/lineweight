@@ -1,4 +1,4 @@
-import { LaampAdapterConfiguration, LaampAdapterSubject } from '../../../types'
+import { LaampAdapterConfiguration, LaampEventSubject } from '../../../types'
 import { LaampDeviceUpdatedEvent } from '../adapter.types'
 import { ID } from '@lineweight/types'
 import { LaampDevice } from '../../../devices/device.types'

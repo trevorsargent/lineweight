@@ -1,13 +1,20 @@
 import type { LaampDevice } from '../../devices/device.types'
 import { ID } from '@lineweight/types'
+import { Observable } from 'rxjs'
 
-export interface LaampAdapter {
+export interface LaampGateway {
+  info: LaampGatewayInfo
+  devices: LaampDevice[]
+  events: Observable<LaampGatewayEvent>
+}
+
+export interface LaampGatewayInfo {
   name: string
   id: ID
   address: string
 }
 
-export type LaampAdapterEvent =
+export type LaampGatewayEvent =
   | LaampDeviceRemovedEvent
   | LaampDeviceUpdatedEvent
   | LaampGroupUpdatedEvent

@@ -1,8 +1,8 @@
 import { Observable, Subject } from 'rxjs'
 import type { ID, Color } from '@lineweight/types'
 import type {
-  LaampAdapter,
-  LaampAdapterEvent,
+  LaampGatewayInfo,
+  LaampGatewayEvent,
 } from './adapters/adapter/adapter.types'
 import type { LaampDevice, LaampGroup } from './devices/device.types'
 export interface LaampAdapterConfiguration {
@@ -12,12 +12,17 @@ export interface LaampAdapterConfiguration {
 
 export interface Laamp {
   id: ID
-  adapters: LaampAdapter
   devices: LaampDevice
+  channels: LaampChannel
+  gateways: LaampGatewayInfo[]
 }
 
-export type LaampEvent = LaampAdapterEvent
+export type LaampEvent = LaampGatewayEvent
 
-export type LaampAdapterStream = Observable<LaampAdapterEvent>
+export type LaampEventStream = Observable<LaampEvent>
 
-export type LaampAdapterSubject = Subject<LaampAdapterEvent>
+export type LaampEventSubject = Subject<LaampEvent>
+
+export interface LaampChannel {
+  devices: LaampDevice
+}

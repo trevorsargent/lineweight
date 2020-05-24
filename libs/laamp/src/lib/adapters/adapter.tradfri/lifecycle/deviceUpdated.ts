@@ -1,9 +1,9 @@
-import { LaampAdapterSubject } from '../../../types'
+import { LaampEventSubject } from '../../../types'
 import { Accessory, DeviceUpdatedCallback } from 'node-tradfri-client'
 import { LaampLamp } from '../../../devices/device.types'
 
 export const deviceUpdated = (
-  deviceUpdated$: LaampAdapterSubject
+  deviceUpdated$: LaampEventSubject
 ): DeviceUpdatedCallback => (d: Accessory) => {
   const device: LaampLamp = {
     id: `${d.instanceId}`,
