@@ -1,14 +1,14 @@
 import { ID } from '@lineweight/types'
 import {
   LaampGroup,
-  LaampAdapterConfiguration,
+  LaampGatewayConfiguration,
   LaampGroupUpdatedEvent,
 } from '@lineweight/laamp'
 
 export const onGroupUpdated = (
-  adapter: LaampAdapterConfiguration,
+  adapter: LaampGatewayConfiguration,
   event: LaampGroupUpdatedEvent
-): LaampAdapterConfiguration => {
+): LaampGatewayConfiguration => {
   const { groupId, deviceIds, name } = event
 
   const group: LaampGroup = {
@@ -24,7 +24,7 @@ export const onGroupUpdated = (
 
   deviceMap.set(groupId, group)
 
-  return <LaampAdapterConfiguration>{
+  return <LaampGatewayConfiguration>{
     ...adapter,
     groups: Array.from(deviceMap.values()),
   }

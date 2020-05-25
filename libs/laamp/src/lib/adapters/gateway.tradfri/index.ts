@@ -8,7 +8,7 @@ import {
   LaampGroupUpdatedEvent,
   LaampGroupRemovedEvent,
   LaampGatewayEvent,
-} from '../adapter.types'
+} from '../gateway.types'
 import { deviceUpdated } from './hooks/deviceUpdated'
 import { deviceRemoved } from './hooks/deviceRemoved'
 import { error } from './hooks/error'
@@ -49,7 +49,7 @@ const gateway$ = () => from(discoverGateway(1000))
 //     }
 // }
 
-export const adapterEvents$ = ({ identity, psk }) => {
+export const gatewayEvents$ = ({ identity, psk }) => {
   return gateway$().pipe(
     map((gateway) => new TradfriClient(gateway.addresses[0])),
     switchMap<TradfriClient, Observable<LaampGatewayEvent>>((client) => {

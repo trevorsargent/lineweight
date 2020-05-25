@@ -1,10 +1,10 @@
-import { LaampAdapterConfiguration, LaampEventSubject } from '../../../types'
-import { LaampDeviceUpdatedEvent } from '../../adapter.types'
+import { LaampGatewayConfiguration, LaampEventSubject } from '../../../types'
+import { LaampDeviceUpdatedEvent } from '../../gateway.types'
 import { ID } from '@lineweight/types'
 import { LaampDevice } from '../../../devices/device.types'
 
 export const onDeviceUpdated = (
-  adapter: LaampAdapterConfiguration,
+  adapter: LaampGatewayConfiguration,
   event: LaampDeviceUpdatedEvent
 ) => {
   const { device } = event
@@ -16,7 +16,7 @@ export const onDeviceUpdated = (
 
   deviceMap.set(device.id, device)
 
-  return <LaampAdapterConfiguration>{
+  return <LaampGatewayConfiguration>{
     ...adapter,
     devices: Array.from(deviceMap.values()),
   }

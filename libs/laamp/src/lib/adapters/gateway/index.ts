@@ -4,21 +4,21 @@ import {
   LaampGatewayEvent,
   LaampDeviceUpdatedEvent,
   LaampGroupUpdatedEvent,
-} from '../adapter.types'
+} from '../gateway.types'
 import {
-  LaampAdapterConfiguration,
+  LaampGatewayConfiguration,
   Laamp,
   LaampDevice,
   LaampChannel,
 } from '../../types'
-import { adapterEvents$ } from '../adapter.tradfri'
+import { gatewayEvents$ } from '../gateway.tradfri'
 import { onDeviceUpdated } from './events/onDeviceUpdated'
 import { onGroupUpdated } from './events/onGroupUpdated'
 
 export const connect = ({ identity, psk }): Observable<Laamp> => {
   return config$({ identity, psk }).pipe(
-    map<LaampAdapterConfiguration, Laamp>(
-      (config: LaampAdapterConfiguration) => ({
+    map<LaampGatewayConfiguration, Laamp>(
+      (config: LaampGatewayConfiguration) => ({
         gateways: [],
         channels: config.devices.map<LaampChannel>((d: LaampDevice) => ({
           id: d.id,
@@ -32,14 +32,14 @@ export const connect = ({ identity, psk }): Observable<Laamp> => {
 export const config$ = ({
   identity,
   psk,
-}): Observable<LaampAdapterConfiguration> => {
-  return adapterEvents$({ identity, psk }).pipe(
+}): Observable<LaampGatewayConfiguration> => {
+  return gatewayEvents$({ identity, psk }).pipe(
     scan(scanForConfig, { devices: [], groups: [] })
   )
 }
 
 const scanForConfig = (
-  adapter: LaampAdapterConfiguration,
+  adapter: LaampGatewayConfiguration,
   event: LaampGatewayEvent
 ) => {
   // DEVICE UPDATED
