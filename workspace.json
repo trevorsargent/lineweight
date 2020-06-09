@@ -132,6 +132,110 @@
           }
         }
       }
+    },
+    "kmbx": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@nrwl/angular:class": {
+          "skipTests": true
+        },
+        "@nrwl/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        },
+        "@nrwl/angular:directive": {
+          "skipTests": true
+        },
+        "@nrwl/angular:guard": {
+          "skipTests": true
+        },
+        "@nrwl/angular:module": {
+          "skipTests": true
+        },
+        "@nrwl/angular:pipe": {
+          "skipTests": true
+        },
+        "@nrwl/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "apps/kmbx",
+      "sourceRoot": "apps/kmbx/src",
+      "prefix": "lineweight",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/kmbx",
+            "index": "apps/kmbx/src/index.html",
+            "main": "apps/kmbx/src/main.ts",
+            "polyfills": "apps/kmbx/src/polyfills.ts",
+            "tsConfig": "apps/kmbx/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/kmbx/src/favicon.ico", "apps/kmbx/src/assets"],
+            "styles": ["apps/kmbx/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/kmbx/src/environments/environment.ts",
+                  "with": "apps/kmbx/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "kmbx:build",
+            "proxyConfig": "apps/kmbx/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "kmbx:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "kmbx:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/kmbx/tsconfig.app.json"],
+            "exclude": ["**/node_modules/**", "!apps/kmbx/**"]
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -194,6 +298,13 @@
       "library": {
         "linter": "eslint"
       }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "none",
+      "e2eTestRunner": "none"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "none"
     }
   },
   "defaultProject": "meatman"
