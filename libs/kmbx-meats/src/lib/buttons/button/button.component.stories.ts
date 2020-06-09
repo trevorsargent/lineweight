@@ -1,15 +1,15 @@
-
-import { ButtonComponent } from './button.component';
+import { ButtonComponent } from './button.component'
 
 export default {
-  title: 'ButtonComponent'
+  title: 'ButtonComponent',
 }
 
 export const primary = () => ({
   moduleMetadata: {
-    imports: []
+    imports: [],
   },
   component: ButtonComponent,
   props: {
-  }
+    text: 'Click Me!',
+  },
 })

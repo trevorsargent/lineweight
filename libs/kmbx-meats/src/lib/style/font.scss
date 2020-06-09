@@ -1,0 +1,10 @@
+@mixin displayFont {
+  font-family: 'Fascinate Inline', 'Open Sans', Helvetica, sans-serif;
+  text-transform: uppercase;
+}
+
+@mixin displayHeading {
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  border-radius: 0.2rem;
+}
