@@ -17,7 +17,6 @@ import {
   Arg,
   buildSchema,
   Mutation,
-  Args,
   InputType,
   ID,
 } from 'type-graphql'
@@ -83,6 +82,10 @@ export class Laamp implements L {
 
   @Field((type) => [LaampChannel])
   channels: LC[]
+
+  sendCommand() {
+    return false
+  }
 }
 
 @InputType({ description: 'Identity and Passkey for Tradfri Gateway' })
@@ -134,8 +137,10 @@ class SetChannelLampsInput implements LC {
 export class LaampChannelResolver {
   @Mutation((returns) => Boolean)
   setChannel(@Arg('channel') channel: SetChannelLampsInput) {
-    console.log(channel)
-    return true
+    return l.sendCommand({
+      setChannel: true,
+      channel,
+    })
   }
 
   @Query((returns) => [LaampChannel])

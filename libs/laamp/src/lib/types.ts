@@ -14,6 +14,7 @@ export interface LaampGatewayConfiguration {
 export interface Laamp {
   gateways: LaampGateway[]
   channels: LaampChannel[]
+  sendCommand: (command: LaampCommand) => boolean
 }
 
 export type LaampEvent = LaampGatewayEvent
@@ -25,4 +26,11 @@ export type LaampEventSubject = Subject<LaampEvent>
 export interface LaampChannel {
   id: ID
   devices: LaampDevice[]
+}
+
+export type LaampCommand = LaampSetChannelCommand
+
+export interface LaampSetChannelCommand {
+  setChannel: true
+  channel: LaampChannel
 }
