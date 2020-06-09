@@ -236,6 +236,26 @@
           }
         }
       }
+    },
+    "kmbx-meats": {
+      "projectType": "library",
+      "root": "libs/kmbx-meats",
+      "sourceRoot": "libs/kmbx-meats/src",
+      "prefix": "meat",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/kmbx-meats/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/kmbx-meats/**"]
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
