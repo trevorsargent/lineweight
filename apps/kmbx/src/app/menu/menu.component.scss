@@ -1,0 +1,49 @@
+@import 'libs/kmbx-meats/src/lib/style/color.scss';
+@import 'libs/kmbx-meats/src/lib/style/font.scss';
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  // border-bottom: .1rem solid $color-red;
+}
+
+.link-group {
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+
+  a {
+    @include outline;
+    @include displayHeading;
+    @include displayFont;
+    @include backgroundFade;
+    // @include colorFade;
+
+    text-decoration: none;
+
+    padding: .25rem .5rem;
+    margin-bottom: .25rem;
+
+
+    &:hover {
+      @include highlight;
+      border-color: transparent;
+    }
+
+  }
+}
+
+header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+img {
+  width: 50%;
+  justify-content: cover;
+}

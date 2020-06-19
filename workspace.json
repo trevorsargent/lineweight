@@ -164,7 +164,7 @@
       },
       "root": "apps/kmbx",
       "sourceRoot": "apps/kmbx/src",
-      "prefix": "lineweight",
+      "prefix": "kmbx",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -174,9 +174,6 @@
             "main": "apps/kmbx/src/main.ts",
             "polyfills": "apps/kmbx/src/polyfills.ts",
             "tsConfig": "apps/kmbx/tsconfig.app.json",
-            "stylePreprocessorOptions": {
-              "includePaths": ["libs/kmbx-meats/src/lib/style"]
-            },
             "aot": true,
             "assets": ["apps/kmbx/src/favicon.ico", "apps/kmbx/src/assets"],
             "styles": ["apps/kmbx/src/styles.scss"],

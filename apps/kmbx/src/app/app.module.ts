@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core'
 
 import { AppComponent } from './app.component'
 import { RouterModule } from '@angular/router'
+import { MenuComponent } from './menu/menu.component'
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MenuComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot([], { initialNavigation: 'enabled' }),
