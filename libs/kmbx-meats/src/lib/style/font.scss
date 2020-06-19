@@ -1,5 +1,5 @@
 @mixin displayFont {
-  font-family: 'Fascinate Inline', 'Open Sans', Helvetica, sans-serif;
+  font-family: 'Fascinate Inline', Helvetica, sans-serif;
   text-transform: uppercase;
 }
 
@@ -7,4 +7,13 @@
   font-size: 1rem;
   letter-spacing: 0.1rem;
   border-radius: 0.2rem;
+}
+
+@mixin standardFont {
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+@mixin titleHeading {
+  text-transform: uppercase;
+  font-weight: 700;
 }

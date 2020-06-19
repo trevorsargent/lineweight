@@ -1,0 +1,16 @@
+<h2 class="section-title">{{ listTitle }}:</h2>
+<div class="schedule-item" *ngFor="let item of events">
+  <img src="{{ item.imgSrc }}" class="schedule-image" alt="meatball" />
+  <div class="text">
+    <h3 class="title">
+      <a routerLink="{{ item.path }}">{{ item.title }}</a>
+    </h3>
+    <p class="blurb" innerText="{{ item.blurb }}"></p>
+  </div>
+  <span class="pin"
+    ><img
+      class="pin-image"
+      src="http://placekitten.com/64/64"
+      alt="meatball-pin"
+  /></span>
+</div>

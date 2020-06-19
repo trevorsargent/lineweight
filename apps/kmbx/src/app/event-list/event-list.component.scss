@@ -1,0 +1,71 @@
+@import 'libs/kmbx-meats/src/lib/style/color.scss';
+@import 'libs/kmbx-meats/src/lib/style/font.scss';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.section-title {
+  @include displayFont;
+  @include displayHeading;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.schedule-item {
+  margin: 0 2rem;
+
+
+  border-bottom: dashed $color-red .05rem;
+
+  &:nth-child(2) {
+    border-top: solid $color-red .2rem;
+  }
+
+  &:last-child {
+    border-bottom: solid $color-red .2rem;
+  }
+
+  padding: 1rem 0;
+  box-sizing: content-box;
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  justify-content: space-between;
+
+
+  .text {
+    @include standardFont;
+    flex-grow: 1;
+
+
+    p {
+      margin: 0;
+    }
+  }
+
+
+  .title {
+    @include titleHeading;
+    margin: 0;
+    height: 2rem;
+  }
+
+  .schedule-image {
+    height: 100%;
+    margin: 0 1rem;
+  }
+
+  .blurb {}
+
+  .pin-image {
+    width: 1rem;
+    justify-self: end;
+    align-self: flex-end;
+    margin-right: 1rem;
+  }
+
+}
