@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core'
-import { ScheduleItem } from '../app.component'
+import { ScheduleItem } from '../services/schedule.service'
 
 @Component({
   selector: 'kmbx-event-list',

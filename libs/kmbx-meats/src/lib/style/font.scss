@@ -3,17 +3,22 @@
   text-transform: uppercase;
 }
 
+@mixin standardFont {
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+@mixin captionHeading {
+  font-size: 0.75rem;
+}
+
 @mixin displayHeading {
   font-size: 1rem;
   letter-spacing: 0.1rem;
   border-radius: 0.2rem;
 }
 
-@mixin standardFont {
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
-}
-
 @mixin titleHeading {
+  font-size: 1.5rem;
   text-transform: uppercase;
   font-weight: 700;
 }

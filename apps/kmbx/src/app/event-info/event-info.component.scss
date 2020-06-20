@@ -1,0 +1,7 @@
+@import 'libs/kmbx-meats/src/lib/style/base.scss';
+
+.title {
+  @include displayFont;
+  @include titleHeading;
+
+}

@@ -1,13 +1,16 @@
 $color-red: #b22806;
 $color-white: #ffffff;
 $color-black: #111111;
+$color-dark-grey: #333333;
+
+$color-grey: #fdfdfd;
 
 @mixin backgroundFade {
-  transition: background-color .5s;
+  transition: background-color 0.5s;
 }
 
 @mixin colorFade {
-  transition: color .5s;
+  transition: color 0.5s;
 }
 
 @mixin inverted {
@@ -16,9 +19,8 @@ $color-black: #111111;
 }
 
 @mixin outline {
-  color: $color-black;
-  border: 0.1rem solid $color-black;
-
+  border-radius: 0.5rem;
+  border: 0.01rem solid $color-red;
 }
 
 @mixin highlight {

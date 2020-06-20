@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Input } from '@angular/core'
 
 @Component({
   selector: 'kmbx-menu',
@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core'
 })
 export class MenuComponent implements OnInit {
   constructor() {}
+
+  @Input()
+  smallMeatball: boolean
 
   ngOnInit(): void {}
 }

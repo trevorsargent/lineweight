@@ -1,16 +1,40 @@
 <h2 class="section-title">{{ listTitle }}:</h2>
-<div class="schedule-item" *ngFor="let item of events">
-  <img src="{{ item.imgSrc }}" class="schedule-image" alt="meatball" />
-  <div class="text">
-    <h3 class="title">
-      <a routerLink="{{ item.path }}">{{ item.title }}</a>
-    </h3>
-    <p class="blurb" innerText="{{ item.blurb }}"></p>
-  </div>
-  <span class="pin"
-    ><img
-      class="pin-image"
-      src="http://placekitten.com/64/64"
-      alt="meatball-pin"
-  /></span>
+<div class="events">
+  <button
+    [routerLink]="['/event', item.department, item.category, item.slug]"
+    class="schedule-item"
+    *ngFor="let item of events"
+  >
+    <!-- <img src="{{ item.imgSrc }}" class="schedule-image" alt="meatball" /> -->
+    <div class="main">
+      <h3 class="title">
+        {{ item.title }}
+      </h3>
+
+      <div class="file">
+        <span class="department">
+          <a href="/"> {{ item.department }}</a></span
+        >
+
+        <span class="category">
+          <a href="/">{{ item.category }}</a></span
+        >
+      </div>
+
+      <div class="datetime">
+        <span class="date">{{
+          item.date | date: (item.allDay ? 'mediumDate' : 'medium')
+        }}</span>
+        <span class="time">{{ item.time }}</span>
+      </div>
+      <div class="icon">
+        <mat-icon>{{ item.icon }}</mat-icon>
+      </div>
+      <p class="blurb" innerText="{{ item.blurb }}"></p>
+    </div>
+
+    <div class="footer">
+      <div class="tag" *ngFor="let tag of item.tags">{{ tag }}</div>
+    </div>
+  </button>
 </div>

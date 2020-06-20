@@ -43,7 +43,12 @@ header {
 
 }
 
-img {
+.tower {
   width: 50%;
   justify-content: cover;
+
+  &.small {
+    width: 25%;
+  }
+
 }
