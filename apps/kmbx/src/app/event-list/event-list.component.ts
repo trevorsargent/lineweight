@@ -15,5 +15,13 @@ export class EventListComponent implements OnInit {
   @Input()
   events: ScheduleItem
 
+  trackByFn(_, item: ScheduleItem) {
+    return item.startTime
+  }
+
+  distanceFromCenter(index: number, array: []) {
+    return Math.floor(array.length / 2) - index + 0.5
+  }
+
   ngOnInit(): void {}
 }

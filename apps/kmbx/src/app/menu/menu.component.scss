@@ -15,8 +15,7 @@
 
   a {
     @include outline;
-    @include displayHeading;
-    @include displayFont;
+    @include display;
     @include backgroundFade;
     // @include colorFade;
 
@@ -27,7 +26,7 @@
 
 
     &:hover {
-      @include highlight;
+      @include invert;
       border-color: transparent;
     }
 

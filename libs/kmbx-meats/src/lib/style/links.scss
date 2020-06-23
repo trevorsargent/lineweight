@@ -1,7 +1,14 @@
+@import './color.scss';
+
 a {
-  color: currentColor;
+  @extend .highlight;
+
 
   &:visited {
-    color: currentColor;
+    @extend .highlight;
   }
+}
+
+.highlight {
+  color: $color-red
 }

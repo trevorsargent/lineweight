@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ScheduleService, ScheduleItem } from '../services/schedule.service'
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'kmbx-home',
@@ -11,11 +12,11 @@ export class HomeComponent implements OnInit {
 
   title = 'kmbx'
 
-  upcomingMeats: ScheduleItem[]
-  recentEvents: ScheduleItem[]
+  padding = 5
+
+  meats: Observable<ScheduleItem[]>
 
   ngOnInit(): void {
-    this.upcomingMeats = this.schedule.upcomingEvents()
-    this.recentEvents = this.schedule.recentEvents()
+    this.meats = this.schedule.soonAndRecent(this.padding)
   }
 }

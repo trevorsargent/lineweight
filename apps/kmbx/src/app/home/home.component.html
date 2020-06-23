@@ -1,9 +1,5 @@
 <kmbx-menu></kmbx-menu>
 <kmbx-event-list
   listTitle="Upcoming Meats"
-  [events]="upcomingMeats"
-></kmbx-event-list>
-<kmbx-event-list
-  listTitle="Recent Meats"
-  [events]="recentEvents"
+  [events]="meats | async"
 ></kmbx-event-list>
