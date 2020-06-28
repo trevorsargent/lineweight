@@ -1,5 +1,5 @@
-import * as channels from './channels'
-import * as devices from './devices'
+import { channels } from './channels'
+import { devices } from './devices'
 
 export const app = {
   channels,

@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs'
 import type { LaampGatewayEvent, LaampGateway } from './adapters/gateway.types'
 import type { LaampDevice, LaampGroup } from './devices/device.types'
 import { ID } from '@lineweight/types'
+import { LaampRepo } from './repo'
 
 export interface LaampGatewayConfiguration {
   devices: LaampDevice[]
@@ -34,7 +35,8 @@ export interface LaampSetChannelCommand {
 }
 
 export interface LaampContext {
-  repo
+  repo: LaampRepo
+  publishEvent: (event: LaampEvent) => void
 }
 
 export type LaampEvent =

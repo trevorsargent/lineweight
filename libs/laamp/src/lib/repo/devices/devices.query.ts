@@ -1,7 +1,5 @@
-import { LaampDevice } from '../../devices/device.types'
+import { deviceStore } from './index'
 
-const deviceStore: LaampDevice[] = []
-
-export const devices = () => {
+export const query = () => {
   return deviceStore
 }

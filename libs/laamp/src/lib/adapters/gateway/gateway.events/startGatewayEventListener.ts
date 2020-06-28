@@ -20,17 +20,17 @@ export const handleEvents = (events$: Subject<LaampEvent>) => (
 ) => {
   switch (event.type) {
     case 'deviceUpdated':
-      if (app.devices.device(event.device.id, context)) {
-        events$.next({ type: 'deviceUpdated', device: event.device })
+      if (app.devices.query.device(event.device.id, context)) {
+        app.devices.mutation.updateDevices([event.device], context)
       } else {
-        events$.next({ type: 'deviceCreated', device: event.device })
+        app.devices.mutation.createDevices([event.device], context)
       }
       break
 
     case 'deviceRemoved':
       events$.next({
         type: 'deviceRemoved',
-        device: app.devices.device(event.deviceId, context),
+        device: app.devices.query.device(event.deviceId, context),
       })
 
     // if we have the device, update event.

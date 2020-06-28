@@ -1,1 +1,5 @@
-export * from './channels.query'
+import { query } from './channels.query'
+
+export const channels = {
+  query,
+}
