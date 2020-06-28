@@ -27,6 +27,7 @@ import { ApolloServer } from 'apollo-server'
 import { Color as C, Intensity as I, ID as StringID } from '@lineweight/types'
 
 import { app } from '@lineweight/laamp'
+import { context } from '@lineweight/laamp'
 
 @ObjectType()
 export class LaampGatewayInfo implements LGI {
@@ -141,12 +142,12 @@ export class LaampChannelResolver {
 
   @Query((returns) => [LaampChannel])
   channels() {
-    return app.channels.query.channels()
+    return app.channels.query.channels(context)
   }
 
   @Query((returns) => LaampChannel)
   channel(@Arg('id') id: String) {
-    app.channels.query.channels()
+    app.channels.query.channels(context)
   }
 }
 

@@ -4,6 +4,7 @@ import { LaampGatewayEvent } from '../../gateway.types'
 import { map } from 'rxjs/operators'
 import { Subject, Observable } from 'rxjs'
 import { app } from '../../../application'
+import { context } from '../../../context'
 
 export const startGatewayEventListeners = (
   events$: Subject<LaampEvent>,
@@ -19,7 +20,7 @@ export const handleEvents = (events$: Subject<LaampEvent>) => (
 ) => {
   switch (event.type) {
     case 'deviceUpdated':
-      if (app.devices.query.device(event.device.id)) {
+      if (app.devices.device(event.device.id, context)) {
         events$.next({ type: 'deviceUpdated', device: event.device })
       } else {
         events$.next({ type: 'deviceCreated', device: event.device })
@@ -29,7 +30,7 @@ export const handleEvents = (events$: Subject<LaampEvent>) => (
     case 'deviceRemoved':
       events$.next({
         type: 'deviceRemoved',
-        device: app.devices.query.device(event.deviceId),
+        device: app.devices.device(event.deviceId, context),
       })
 
     // if we have the device, update event.

@@ -33,6 +33,10 @@ export interface LaampSetChannelCommand {
   channel: LaampChannel
 }
 
+export interface LaampContext {
+  repo
+}
+
 export type LaampEvent =
   | {
       type: 'deviceCreated'
