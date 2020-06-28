@@ -26,7 +26,7 @@ import { connect } from '@lineweight/laamp'
 import { ApolloServer } from 'apollo-server'
 import { Color as C, Intensity as I, ID as StringID } from '@lineweight/types'
 
-let l: L
+import { app } from '@lineweight/laamp'
 
 @ObjectType()
 export class LaampGatewayInfo implements LGI {
@@ -42,6 +42,7 @@ export class LaampGatewayInfo implements LGI {
 
 @ObjectType()
 export class LaampLamp implements LL {
+  deviceType: 'lamp'
   lamp: true
   @Field((type) => String)
   color: C
@@ -77,6 +78,7 @@ export class LaampChannel implements LC {
 
 @ObjectType()
 export class Laamp implements L {
+  devices: LD[]
   @Field((type) => LaampGateway)
   gateways: LG[]
 
@@ -100,23 +102,17 @@ class ConnectGatewayInput {
 @Resolver(Laamp)
 class LaampResolver {
   @Query((returns) => Laamp)
-  laamp() {
-    return l
-  }
+  laamp() {}
 
-  @Mutation((returns) => Boolean)
-  connectGateway(@Arg('auth') auth: ConnectGatewayInput) {
-    connect(auth).subscribe((ll) => {
-      l = ll
-    })
-    return true
-  }
+  // @Mutation((returns) => Boolean)
+  // connectGateway(@Arg('auth') auth: ConnectGatewayInput) {
+  //   connect(auth).subscribe((ll) => {})
+  //   return true
+  // }
 }
 
 @InputType()
-class LaampLampInput implements LL {
-  lamp: true
-
+class LaampLampInput implements Omit<LL, 'deviceType'> {
   @Field()
   id: string
   @Field()
@@ -137,26 +133,26 @@ class SetChannelLampsInput implements LC {
 export class LaampChannelResolver {
   @Mutation((returns) => Boolean)
   setChannel(@Arg('channel') channel: SetChannelLampsInput) {
-    return l.sendCommand({
-      setChannel: true,
-      channel,
-    })
+    // return l.sendCommand({
+    //   setChannel: true,
+    //   channel,
+    // })
   }
 
   @Query((returns) => [LaampChannel])
   channels() {
-    return l.channels
+    return app.channels.query.channels()
   }
 
   @Query((returns) => LaampChannel)
   channel(@Arg('id') id: String) {
-    return l.channels.find((ch) => ch.id === id)
+    app.channels.query.channels()
   }
 }
 
 const PORT = process.env.PORT || 4000
 
-export const start = async () => {
+export const startGraphQLServer = async () => {
   const schema = await buildSchema({
     resolvers: [LaampResolver, LaampChannelResolver],
   })

@@ -1,10 +1,10 @@
-import { LaampEventSubject } from '@lineweight/laamp'
+import { LaampGatewayEventSubject } from '@lineweight/laamp'
 
-export const deviceRemoved = (deviceRemoved$: LaampEventSubject) => (
-  deviceId: number
+export const deviceRemoved = (deviceRemoved$: LaampGatewayEventSubject) => (
+  deviceId: number,
 ) => {
   deviceRemoved$.next({
-    deviceRemoved: true,
+    type: 'deviceRemoved',
     deviceId: deviceId.toString(),
   })
 }

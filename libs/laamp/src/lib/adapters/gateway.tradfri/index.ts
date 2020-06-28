@@ -1,14 +1,7 @@
 import { discoverGateway, TradfriClient } from 'node-tradfri-client'
 import { from, Observable, Subject, merge } from 'rxjs'
 import { map, switchMap } from 'rxjs/operators'
-import {
-  LaampErrorEvent,
-  LaampDeviceUpdatedEvent,
-  LaampDeviceRemovedEvent,
-  LaampGroupUpdatedEvent,
-  LaampGroupRemovedEvent,
-  LaampGatewayEvent,
-} from '../gateway.types'
+import { LaampGatewayEvent } from '../gateway.types'
 import { deviceUpdated } from './hooks/deviceUpdated'
 import { deviceRemoved } from './hooks/deviceRemoved'
 import { error } from './hooks/error'
@@ -59,34 +52,23 @@ export const gatewayEvents$ = ({ identity, psk }) => {
             throw 1
           }
 
-          const deviceUpdated$ = new Subject<LaampDeviceUpdatedEvent>()
-          const deviceRemoved$ = new Subject<LaampDeviceRemovedEvent>()
-
-          const error$ = new Subject<LaampErrorEvent>()
+          const events$ = new Subject<LaampGatewayEvent>()
 
           client
-            .on('device updated', deviceUpdated(deviceUpdated$))
-            .on('device removed', deviceRemoved(deviceRemoved$))
-            .on('error', error(error$))
+            .on('device updated', deviceUpdated(events$))
+            .on('device removed', deviceRemoved(events$))
+            .on('error', error(events$))
             .observeDevices()
 
-          const groupUpdated$ = new Subject<LaampGroupUpdatedEvent>()
-          const groupRemoved$ = new Subject<LaampGroupRemovedEvent>()
-
           client
-            .on('group updated', groupUpdated(groupUpdated$))
-            .on('group removed', groupRemoved(groupRemoved$))
-            .on('error', error(error$))
+            .on('group updated', groupUpdated(events$))
+            .on('group removed', groupRemoved(events$))
+            .on('error', error(events$))
             .observeGroupsAndScenes()
 
-          return merge(
-            deviceUpdated$,
-            deviceRemoved$,
-            groupUpdated$,
-            groupRemoved$
-          )
-        })
+          return events$
+        }),
       )
-    })
+    }),
   )
 }

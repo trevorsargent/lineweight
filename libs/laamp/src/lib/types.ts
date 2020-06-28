@@ -14,14 +14,12 @@ export interface LaampGatewayConfiguration {
 export interface Laamp {
   gateways: LaampGateway[]
   channels: LaampChannel[]
+  devices: LaampDevice[]
   sendCommand: (command: LaampCommand) => boolean
 }
 
-export type LaampEvent = LaampGatewayEvent
-
-export type LaampEventStream = Observable<LaampEvent>
-
-export type LaampEventSubject = Subject<LaampEvent>
+export type LaampGatewayEventStream = Observable<LaampGatewayEvent>
+export type LaampGatewayEventSubject = Subject<LaampGatewayEvent>
 
 export interface LaampChannel {
   id: ID
@@ -34,3 +32,29 @@ export interface LaampSetChannelCommand {
   setChannel: true
   channel: LaampChannel
 }
+
+export type LaampEvent =
+  | {
+      type: 'deviceCreated'
+      device: LaampDevice
+    }
+  | {
+      type: 'deviceUpdated'
+      device: LaampDevice
+    }
+  | {
+      type: 'deviceRemoved'
+      device: LaampDevice
+    }
+  | {
+      type: 'channelDeleted'
+      channel: LaampChannel
+    }
+  | {
+      type: 'channelUpdated'
+      channel: LaampChannel
+    }
+  | {
+      type: 'channelDeleted'
+      channel: LaampChannel
+    }

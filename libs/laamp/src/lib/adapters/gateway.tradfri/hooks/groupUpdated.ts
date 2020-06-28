@@ -1,15 +1,20 @@
-import { LaampEventSubject } from '../../../types'
+import {
+  LaampGatewayEventSubject,
+  LaampGatewayConfiguration,
+} from '../../../types'
 import { GroupUpdatedCallback, Group } from 'node-tradfri-client'
-import { LaampGroupUpdatedEvent } from '../../gateway.types'
+import { LaampGatewayEvent } from '../../gateway.types'
 
 export const groupUpdated = (
-  groupUpdated$: LaampEventSubject
+  groupUpdated$: LaampGatewayEventSubject,
 ): GroupUpdatedCallback => (g: Group) => {
-  const event: LaampGroupUpdatedEvent = {
-    groupUpdated: true,
-    groupId: g.instanceId.toString(),
-    deviceIds: g.deviceIDs.map((id) => id.toString()),
-    name: g.name,
+  const event: LaampGatewayEvent = {
+    type: 'groupUpdated',
+    group: {
+      deviceIds: g.deviceIDs.map((x) => x.toString()),
+      id: g.instanceId.toString(),
+      name: g.name,
+    },
   }
   groupUpdated$.next(event)
 }

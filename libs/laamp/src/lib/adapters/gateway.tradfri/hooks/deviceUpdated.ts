@@ -1,18 +1,59 @@
-import { LaampEventSubject } from '../../../types'
-import { Accessory, DeviceUpdatedCallback } from 'node-tradfri-client'
-import { LaampLamp } from '../../../devices/device.types'
+import { LaampGatewayEventSubject } from '../../../types'
+import {
+  Accessory,
+  DeviceUpdatedCallback,
+  AccessoryTypes,
+} from 'node-tradfri-client'
+import {
+  LaampLamp,
+  LaampController,
+  LaampBlind,
+} from '../../../devices/device.types'
 
 export const deviceUpdated = (
-  deviceUpdated$: LaampEventSubject
+  events$: LaampGatewayEventSubject,
 ): DeviceUpdatedCallback => (d: Accessory) => {
-  const device: LaampLamp = {
-    id: `${d.instanceId}`,
-    lamp: true,
-    color: d.lightList[0].color,
-    intensity: d.lightList[0].onOff ? d.lightList[0].dimmer : 0,
+  switch (d.type) {
+    case AccessoryTypes.lightbulb:
+      const devices: LaampLamp[] = d.lightList.map((light) => ({
+        id: `Lamp:${d.instanceId}:${light.instanceId}`,
+        color: light.color,
+        intensity: light.onOff ? light.dimmer : 0,
+        deviceType: 'lamp',
+      }))
+
+      devices.forEach((device) => {
+        events$.next({
+          type: 'deviceUpdated',
+          device,
+        })
+      })
+      break
+    case AccessoryTypes.remote:
+      const remote: LaampController = {
+        deviceType: 'controller',
+        id: `Remote:${d.instanceId}`,
+      }
+
+      events$.next({
+        type: 'deviceUpdated',
+        device: remote,
+      })
+      break
+    case AccessoryTypes.blind:
+      const blinds: LaampBlind[] = d.blindList.map((blind) => ({
+        deviceType: 'blind',
+        id: `Blind:${d.instanceId}`,
+        position: blind.position,
+      }))
+
+      blinds.forEach((blind) => {
+        events$.next({
+          type: 'deviceUpdated',
+          device: blind,
+        })
+      })
+
+      break
   }
-  deviceUpdated$.next({
-    deviceUpdated: true,
-    device,
-  })
 }
