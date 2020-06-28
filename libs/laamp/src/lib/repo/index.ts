@@ -1,8 +1,8 @@
-import { Laamp } from '@lineweight/laamp'
-
 import { channels } from './channels'
 import { devices } from './devices'
-import { LaampContext } from '../types'
+import { ID } from '@lineweight/types'
+import { LaampDevice } from '../devices/device.types'
+import { LaampChannel } from '../types'
 
 export const repo: LaampRepo = {
   devices,
@@ -10,11 +10,12 @@ export const repo: LaampRepo = {
 }
 
 export interface LaampRepo {
-  [key: string]: LaampRepoCollection<any>
+  devices: LaampRepoCollection<LaampDevice>
+  channels: LaampRepoCollection<LaampChannel>
 }
 
 export interface LaampRepoCollection<T> {
-  query: () => T[]
+  query: (id: ID[]) => T[]
   insert?: (t: T[]) => boolean
   update?: (t: T[]) => boolean
   delete?: (t: T[]) => boolean

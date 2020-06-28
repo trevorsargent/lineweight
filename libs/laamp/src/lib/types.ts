@@ -53,7 +53,7 @@ export type LaampEvent =
       device: LaampDevice
     }
   | {
-      type: 'channelDeleted'
+      type: 'channelCreated'
       channel: LaampChannel
     }
   | {
