@@ -1,6 +1,6 @@
 import { LaampChannel } from '../../types'
 
-const channelsStore: LaampChannel[] = []
+import { channelsStore } from '.'
 
 export const query = () => {
   return channelsStore
