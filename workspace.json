@@ -48,7 +48,8 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "meatman:build"
+            "buildTarget": "meatman:build",
+            "port": 5858
           }
         },
         "lint": {
