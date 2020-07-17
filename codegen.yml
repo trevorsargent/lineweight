@@ -1,0 +1,6 @@
+schema: libs/laamp/src/**/*.graphql
+generates:
+  ./libs/laamp/src/lib/types/types.generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations

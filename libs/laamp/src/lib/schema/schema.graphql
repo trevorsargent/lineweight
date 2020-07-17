@@ -1,0 +1,56 @@
+type Laamp {
+  gateways: [LaampGateway!]!
+  channels: [LaampChannel!]!
+}
+
+type LaampChannel {
+  id: String!
+  devices: [LaampDevice!]!
+  name: String!
+}
+
+type LaampGateway {
+  id: String!
+  info: LaampGatewayInfo!
+  devices: [LaampDevice!]!
+}
+
+type LaampGatewayInfo {
+  name: String!
+  id: String!
+  address: String!
+}
+
+interface LaampDevice {
+  id: String!
+}
+
+type LaampLamp implements LaampDevice {
+  color: String!
+  intensity: Float!
+}
+
+type LaampShade implements LaampDevice {
+  position: Float!
+}
+
+input LaampLampInput {
+  id: String!
+  color: String!
+  intensity: Float!
+}
+
+type Mutation {
+  setChannel(channel: SetChannelLampsInput!): Boolean!
+}
+
+type Query {
+  laamp: Laamp!
+  channels: [LaampChannel!]!
+  channel(id: String!): LaampChannel!
+}
+
+# Channel parameter values to set
+input SetChannelLampsInput {
+  devices: [LaampLampInput!]!
+}

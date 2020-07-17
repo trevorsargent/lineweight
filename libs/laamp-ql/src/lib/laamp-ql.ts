@@ -19,6 +19,9 @@ import {
   Mutation,
   InputType,
   ID,
+  ResolverInterface,
+  InterfaceType,
+  createUnionType,
 } from 'type-graphql'
 
 import { connect } from '@lineweight/laamp'
@@ -41,18 +44,28 @@ export class LaampGatewayInfo implements LGI {
   address: string
 }
 
+const LaampDevice = createUnionType({
+  name: 'LaampDevice',
+  types: () => [LaampLamp] as const,
+  resolveType: (value) => {
+    if (value.deviceType === 'lamp') {
+      return LaampLamp
+    }
+  },
+})
+
 @ObjectType()
 export class LaampLamp implements LL {
+  @Field((type) => String)
+  id: StringID
+
   deviceType: 'lamp'
-  lamp: true
+
   @Field((type) => String)
   color: C
 
   @Field((type) => Number)
   intensity: I
-
-  @Field((type) => ID)
-  id: string
 }
 
 @ObjectType()
@@ -63,7 +76,7 @@ export class LaampGateway implements LG {
   @Field((type) => LaampGatewayInfo)
   info: LGI
 
-  @Field((type) => [LaampLamp])
+  @Field((type) => [LaampDevice])
   devices: LL[]
   // events: Observable<LaampGatewayEvent>
 }
@@ -73,8 +86,11 @@ export class LaampChannel implements LC {
   @Field((type) => String)
   id: StringID
 
-  @Field((type) => [LaampLamp])
-  devices: LL[]
+  @Field((type) => [LaampDevice])
+  devices: LD[]
+
+  @Field((type) => String)
+  name: string
 }
 
 @ObjectType()
@@ -125,12 +141,12 @@ class LaampLampInput implements Omit<LL, 'deviceType'> {
 @InputType({ description: 'Channel parameter values to set' })
 class SetChannelLampsInput implements LC {
   @Field((type) => LaampLampInput)
-  devices: LL[]
+  devices: LD[]
 
   id: StringID
 }
 
-@Resolver()
+@Resolver(LaampChannel)
 export class LaampChannelResolver {
   @Mutation((returns) => Boolean)
   setChannel(@Arg('channel') channel: SetChannelLampsInput) {

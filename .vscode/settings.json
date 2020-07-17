@@ -1,0 +1,9 @@
+{
+  "runOnSave.commands": [
+    {
+      "match": ".*",
+      "runIn": "backend",
+      "command": "npx graphql-codegen && echo 'Done'"
+    }
+  ]
+}
