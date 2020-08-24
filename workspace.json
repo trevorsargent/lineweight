@@ -10,8 +10,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/laamp/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/laamp/**"]
+            "tsConfig": [
+              "libs/laamp/tsconfig.lib.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/laamp/**"
+            ]
           }
         }
       }
@@ -29,7 +34,9 @@
             "outputPath": "dist/apps/meatman",
             "main": "apps/meatman/src/main.ts",
             "tsConfig": "apps/meatman/tsconfig.app.json",
-            "assets": ["apps/meatman/src/assets"]
+            "assets": [
+              "apps/meatman/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -59,7 +66,10 @@
               "apps/meatman/tsconfig.app.json",
               "apps/meatman/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/meatman/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/meatman/**"
+            ]
           }
         },
         "test": {
@@ -81,8 +91,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/rx-osc/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/rx-osc/**"]
+            "tsConfig": [
+              "libs/rx-osc/tsconfig.lib.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/rx-osc/**"
+            ]
           }
         }
       }
@@ -96,8 +111,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/traffik/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/traffik/**"]
+            "tsConfig": [
+              "libs/traffik/tsconfig.lib.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/traffik/**"
+            ]
           }
         }
       }
@@ -113,8 +133,13 @@
           "options": {
             "linter": "eslint",
             "config": "libs/types/.eslintrc",
-            "tsConfig": ["libs/types/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/types/**"]
+            "tsConfig": [
+              "libs/types/tsconfig.lib.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/types/**"
+            ]
           }
         }
       }
@@ -128,8 +153,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/laamp-ql/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/laamp-ql/**"]
+            "tsConfig": [
+              "libs/laamp-ql/tsconfig.lib.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/laamp-ql/**"
+            ]
           }
         }
       }
@@ -176,8 +206,13 @@
             "polyfills": "apps/kmbx/src/polyfills.ts",
             "tsConfig": "apps/kmbx/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/kmbx/src/favicon.ico", "apps/kmbx/src/assets"],
-            "styles": ["apps/kmbx/src/styles.scss"],
+            "assets": [
+              "apps/kmbx/src/favicon.ico",
+              "apps/kmbx/src/assets"
+            ],
+            "styles": [
+              "apps/kmbx/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -232,8 +267,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/kmbx/tsconfig.app.json"],
-            "exclude": ["**/node_modules/**", "!apps/kmbx/**"]
+            "tsConfig": [
+              "apps/kmbx/tsconfig.app.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/kmbx/**"
+            ]
           }
         }
       }
@@ -247,8 +287,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/kmbx-meats/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/kmbx-meats/**"]
+            "tsConfig": [
+              "libs/kmbx-meats/tsconfig.lib.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/kmbx-meats/**"
+            ]
           }
         },
         "storybook": {
@@ -285,6 +330,68 @@
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
+        }
+      }
+    },
+    "weather": {
+      "root": "apps/weather",
+      "sourceRoot": "apps/weather/src",
+      "projectType": "application",
+      "prefix": "weather",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/weather",
+            "main": "apps/weather/src/main.ts",
+            "tsConfig": "apps/weather/tsconfig.app.json",
+            "assets": [
+              "apps/weather/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/weather/src/environments/environment.ts",
+                  "with": "apps/weather/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "weather:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/weather/.eslintrc",
+            "tsConfig": [
+              "apps/weather/tsconfig.app.json",
+              "apps/weather/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/weather/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/weather/jest.config.js",
+            "tsConfig": "apps/weather/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
         }
       }
     }
