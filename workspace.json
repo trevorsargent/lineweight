@@ -429,7 +429,8 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "router-client:build"
+            "buildTarget": "router-client:build",
+            "proxyConfig": "apps/router/client/proxy.conf.json"
           }
         },
         "lint": {
@@ -479,6 +480,66 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/router/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "router-server": {
+      "root": "apps/router/server",
+      "sourceRoot": "apps/router/server/src",
+      "projectType": "application",
+      "prefix": "router-server",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/router/server",
+            "main": "apps/router/server/src/main.ts",
+            "tsConfig": "apps/router/server/tsconfig.app.json",
+            "assets": [
+              "apps/router/server/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/router/server/src/environments/environment.ts",
+                  "with": "apps/router/server/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "router-server:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/router/server/tsconfig.app.json",
+              "apps/router/server/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/router/server/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/router/server/jest.config.js",
             "passWithNoTests": true
           }
         }
