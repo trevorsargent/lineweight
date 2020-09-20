@@ -45,6 +45,9 @@
       ],
       "@lineweight/router/core": [
         "libs/router/core/src/index.ts"
+      ],
+      "@lineweight/router/switch": [
+        "libs/router/switch/src/index.ts"
       ]
     }
   },

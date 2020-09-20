@@ -60,6 +60,9 @@
     },
     "router-server": {
       "tags": []
+    },
+    "router-switch": {
+      "tags": []
     }
   }
 }
