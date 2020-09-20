@@ -1,12 +1,12 @@
 import { discoverGateway, TradfriClient } from 'node-tradfri-client'
-import { from, Observable, Subject, merge } from 'rxjs'
+import { from, Observable, Subject } from 'rxjs'
 import { map, switchMap } from 'rxjs/operators'
 import { LaampGatewayEvent } from '../gateway.types'
-import { deviceUpdated } from './hooks/deviceUpdated'
 import { deviceRemoved } from './hooks/deviceRemoved'
+import { deviceUpdated } from './hooks/deviceUpdated'
 import { error } from './hooks/error'
-import { groupUpdated } from './hooks/groupUpdated'
 import { groupRemoved } from './hooks/groupRemoved'
+import { groupUpdated } from './hooks/groupUpdated'
 
 const TRADFRI_ID = 'tradfri'
 

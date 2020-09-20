@@ -48,6 +48,9 @@
     },
     "kmbx-meats": {
       "tags": []
+    },
+    "weather": {
+      "tags": []
     }
   }
 }
