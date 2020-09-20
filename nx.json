@@ -51,6 +51,12 @@
     },
     "weather": {
       "tags": []
+    },
+    "router-client": {
+      "tags": []
+    },
+    "router-core": {
+      "tags": []
     }
   }
 }

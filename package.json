@@ -45,10 +45,21 @@
     "luxon": "^1.25.0",
     "rxjs": "^6.6.3",
     "typescript": "^4.0.3",
-    "zone.js": "^0.11.1"
+    "zone.js": "^0.11.1",
+    "@nestjs/common": "^7.0.0",
+    "@nestjs/core": "^7.0.0",
+    "@nestjs/platform-express": "^7.0.0",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1001.2",
-    "@nrwl/nest": "^10.2.1"
+    "@nrwl/nest": "^10.2.1",
+    "@nrwl/jest": "10.2.1",
+    "jest": "26.2.2",
+    "@types/jest": "26.0.8",
+    "ts-jest": "26.1.4",
+    "@nrwl/node": "10.2.1",
+    "@nestjs/schematics": "^7.0.0",
+    "@nestjs/testing": "^7.0.0"
   }
 }

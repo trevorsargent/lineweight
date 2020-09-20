@@ -394,6 +394,95 @@
           }
         }
       }
+    },
+    "router-client": {
+      "root": "apps/router/client",
+      "sourceRoot": "apps/router/client/src",
+      "projectType": "application",
+      "prefix": "router-client",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/router/client",
+            "main": "apps/router/client/src/main.ts",
+            "tsConfig": "apps/router/client/tsconfig.app.json",
+            "assets": [
+              "apps/router/client/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/router/client/src/environments/environment.ts",
+                  "with": "apps/router/client/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "router-client:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/router/client/tsconfig.app.json",
+              "apps/router/client/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/router/client/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/router/client/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "router-core": {
+      "root": "libs/router/core",
+      "sourceRoot": "libs/router/core/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "libs/router/core/tsconfig.lib.json",
+              "libs/router/core/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/router/core/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/router/core/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
