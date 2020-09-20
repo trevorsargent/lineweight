@@ -48,6 +48,7 @@
     "zone.js": "^0.11.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.1001.2"
+    "@angular-devkit/build-angular": "^0.1001.2",
+    "@nrwl/nest": "^10.2.1"
   }
 }
