@@ -1,3 +1,3 @@
-export * from './lib/router-switch.module';
+export * from './lib/router-switch.module'
 
-export * from './lib/types'
+export * from './lib/switch'

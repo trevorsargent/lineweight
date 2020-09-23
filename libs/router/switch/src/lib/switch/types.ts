@@ -1,6 +1,7 @@
-export interface Switch {
+export class Switch {
   inputs: SwitchInput[]
   outputs: SwitchOutput[]
+  matrix: number[]
 }
 
 export interface SwitchInput {
