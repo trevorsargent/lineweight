@@ -573,6 +573,66 @@
           }
         }
       }
+    },
+    "cabaret": {
+      "root": "apps/cabaret",
+      "sourceRoot": "apps/cabaret/src",
+      "projectType": "application",
+      "prefix": "cabaret",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/cabaret",
+            "main": "apps/cabaret/src/main.ts",
+            "tsConfig": "apps/cabaret/tsconfig.app.json",
+            "assets": [
+              "apps/cabaret/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/cabaret/src/environments/environment.ts",
+                  "with": "apps/cabaret/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "cabaret:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "tsConfig": [
+              "apps/cabaret/tsconfig.app.json",
+              "apps/cabaret/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/cabaret/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/cabaret/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
