@@ -574,9 +574,9 @@
         }
       }
     },
-    "cabaret": {
-      "root": "apps/cabaret",
-      "sourceRoot": "apps/cabaret/src",
+    "bifrost": {
+      "root": "apps/bifrost",
+      "sourceRoot": "apps/bifrost/src",
       "projectType": "application",
       "prefix": "cabaret",
       "schematics": {},
@@ -584,11 +584,11 @@
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/apps/cabaret",
-            "main": "apps/cabaret/src/main.ts",
-            "tsConfig": "apps/cabaret/tsconfig.app.json",
+            "outputPath": "dist/apps/bifrost",
+            "main": "apps/bifrost/src/main.ts",
+            "tsConfig": "apps/bifrost/tsconfig.app.json",
             "assets": [
-              "apps/cabaret/src/assets"
+              "apps/bifrost/src/assets"
             ]
           },
           "configurations": {
@@ -598,8 +598,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/cabaret/src/environments/environment.ts",
-                  "with": "apps/cabaret/src/environments/environment.prod.ts"
+                  "replace": "apps/bifrost/src/environments/environment.ts",
+                  "with": "apps/bifrost/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -608,7 +608,7 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "cabaret:build"
+            "buildTarget": "bifrost:build"
           }
         },
         "lint": {
@@ -616,19 +616,19 @@
           "options": {
             "linter": "eslint",
             "tsConfig": [
-              "apps/cabaret/tsconfig.app.json",
-              "apps/cabaret/tsconfig.spec.json"
+              "apps/bifrost/tsconfig.app.json",
+              "apps/bifrost/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!apps/cabaret/**/*"
+              "!apps/bifrost/**/*"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/cabaret/jest.config.js",
+            "jestConfig": "apps/bifrost/jest.config.js",
             "passWithNoTests": true
           }
         }
