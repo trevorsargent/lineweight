@@ -1,4 +1,15 @@
-console.log('Wilkommen!')
+console.log(`
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||                                                                   ||
+||    ||   ||   |||||   ||     ||     |||||||   ||                   ||
+||    ||   ||   ||      ||     ||     ||   ||   ||    |\\__/,|   ('\\  ||
+||    |||||||   |||     ||     ||     ||   ||   ||  _.|o o  |_   ) ) ||
+||    ||   ||   ||      ||     ||     ||   ||     -(((---(((---------||
+||    ||   ||   |||||   |||||  |||||  |||||||   ||                   ||
+||                                                                   ||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+`)
+
 
 import { eventStream } from '@lineweight/rx-osc'
 import * as OBSWebSocket from 'obs-websocket-js'
@@ -14,8 +25,7 @@ obs.on('ConnectionOpened', () => {
   console.log('Connected to OBS!')
 })
 
-// obs.on('SwitchScenes', (data => console.log(data)))
-obs.on('SourceFilterVisibilityChanged', (data) => data)
+obs.on('SwitchScenes', (data => console.log(data)))
 
 const events = eventStream({ bindingAddress: '0.0.0.0', port: 7840 })
 
