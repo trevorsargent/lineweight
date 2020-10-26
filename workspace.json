@@ -10,13 +10,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/laamp/tsconfig.lib.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/laamp/**"
-            ]
+            "tsConfig": ["libs/laamp/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/laamp/**"]
           }
         }
       }
@@ -34,9 +29,7 @@
             "outputPath": "dist/apps/meatman",
             "main": "apps/meatman/src/main.ts",
             "tsConfig": "apps/meatman/tsconfig.app.json",
-            "assets": [
-              "apps/meatman/src/assets"
-            ]
+            "assets": ["apps/meatman/src/assets"]
           },
           "configurations": {
             "production": {
@@ -66,10 +59,7 @@
               "apps/meatman/tsconfig.app.json",
               "apps/meatman/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/meatman/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/meatman/**"]
           }
         },
         "test": {
@@ -91,13 +81,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/rx-osc/tsconfig.lib.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/rx-osc/**"
-            ]
+            "tsConfig": ["libs/rx-osc/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/rx-osc/**"]
           }
         }
       }
@@ -111,13 +96,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/traffik/tsconfig.lib.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/traffik/**"
-            ]
+            "tsConfig": ["libs/traffik/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/traffik/**"]
           }
         }
       }
@@ -133,13 +113,8 @@
           "options": {
             "linter": "eslint",
             "config": "libs/types/.eslintrc",
-            "tsConfig": [
-              "libs/types/tsconfig.lib.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/types/**"
-            ]
+            "tsConfig": ["libs/types/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/types/**"]
           }
         }
       }
@@ -153,13 +128,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/laamp-ql/tsconfig.lib.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/laamp-ql/**"
-            ]
+            "tsConfig": ["libs/laamp-ql/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/laamp-ql/**"]
           }
         }
       }
@@ -206,13 +176,8 @@
             "polyfills": "apps/kmbx/src/polyfills.ts",
             "tsConfig": "apps/kmbx/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/kmbx/src/favicon.ico",
-              "apps/kmbx/src/assets"
-            ],
-            "styles": [
-              "apps/kmbx/src/styles.scss"
-            ],
+            "assets": ["apps/kmbx/src/favicon.ico", "apps/kmbx/src/assets"],
+            "styles": ["apps/kmbx/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -267,13 +232,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/kmbx/tsconfig.app.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/kmbx/**"
-            ]
+            "tsConfig": ["apps/kmbx/tsconfig.app.json"],
+            "exclude": ["**/node_modules/**", "!apps/kmbx/**"]
           }
         }
       }
@@ -287,13 +247,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/kmbx-meats/tsconfig.lib.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/kmbx-meats/**"
-            ]
+            "tsConfig": ["libs/kmbx-meats/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/kmbx-meats/**"]
           }
         },
         "storybook": {
@@ -346,9 +301,7 @@
             "outputPath": "dist/apps/weather",
             "main": "apps/weather/src/main.ts",
             "tsConfig": "apps/weather/tsconfig.app.json",
-            "assets": [
-              "apps/weather/src/assets"
-            ]
+            "assets": ["apps/weather/src/assets"]
           },
           "configurations": {
             "production": {
@@ -379,10 +332,7 @@
               "apps/weather/tsconfig.app.json",
               "apps/weather/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/weather/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/weather/**"]
           }
         },
         "test": {
@@ -408,9 +358,7 @@
             "outputPath": "dist/apps/router/client",
             "main": "apps/router/client/src/main.ts",
             "tsConfig": "apps/router/client/tsconfig.app.json",
-            "assets": [
-              "apps/router/client/src/assets"
-            ]
+            "assets": ["apps/router/client/src/assets"]
           },
           "configurations": {
             "production": {
@@ -441,10 +389,7 @@
               "apps/router/client/tsconfig.app.json",
               "apps/router/client/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/router/client/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/router/client/**/*"]
           }
         },
         "test": {
@@ -470,10 +415,7 @@
               "libs/router/core/tsconfig.lib.json",
               "libs/router/core/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/router/core/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/router/core/**/*"]
           }
         },
         "test": {
@@ -498,9 +440,7 @@
             "outputPath": "dist/apps/router/server",
             "main": "apps/router/server/src/main.ts",
             "tsConfig": "apps/router/server/tsconfig.app.json",
-            "assets": [
-              "apps/router/server/src/assets"
-            ]
+            "assets": ["apps/router/server/src/assets"]
           },
           "configurations": {
             "production": {
@@ -530,10 +470,7 @@
               "apps/router/server/tsconfig.app.json",
               "apps/router/server/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/router/server/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/router/server/**/*"]
           }
         },
         "test": {
@@ -559,10 +496,7 @@
               "libs/router/switch/tsconfig.lib.json",
               "libs/router/switch/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/router/switch/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/router/switch/**/*"]
           }
         },
         "test": {
@@ -587,15 +521,14 @@
             "outputPath": "dist/apps/bifrost",
             "main": "apps/bifrost/src/main.ts",
             "tsConfig": "apps/bifrost/tsconfig.app.json",
-            "assets": [
-              "apps/bifrost/src/assets"
-            ]
+            "assets": ["apps/bifrost/src/assets"]
           },
           "configurations": {
             "production": {
               "optimization": true,
               "extractLicenses": true,
               "inspect": false,
+              "externalDependencies": "none",
               "fileReplacements": [
                 {
                   "replace": "apps/bifrost/src/environments/environment.ts",
@@ -619,10 +552,7 @@
               "apps/bifrost/tsconfig.app.json",
               "apps/bifrost/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/bifrost/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/bifrost/**/*"]
           }
         },
         "test": {

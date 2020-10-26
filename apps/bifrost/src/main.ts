@@ -10,40 +10,104 @@ console.log(`
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 `)
 
-
+import * as SerialPort from 'serialport'
+import * as Readline from '@serialport/parser-readline'
 import { eventStream } from '@lineweight/rx-osc'
 import * as OBSWebSocket from 'obs-websocket-js'
 import { filter, tap } from 'rxjs/operators'
+import { connections, makeConnection } from './connections'
+import { switchers } from './switcher'
 
 const obs = new OBSWebSocket()
 
+const switcherAddresses = [
+  '/dev/tty.usbserial-14130',
+  '/dev/tty.usbserial-14140',
+  '/dev/tty.usbserial-14110',
+]
+
+const switcherPorts = switcherAddresses.map(
+  (addr) => new SerialPort(addr, { baudRate: 4800 }),
+)
+
+switcherPorts.forEach((port) => {
+  const parser = new Readline()
+  parser.on('data', (data) => console.log(data))
+  port.pipe(parser)
+})
+
 obs
-  .connect({ address: '0.0.0.0:7850', password: 'obs', secure: false })
+  .connect({ address: '10.0.1.123:4444', password: 'obs', secure: false })
   .catch((e) => console.error('Could not connect to OBS', e))
 
 obs.on('ConnectionOpened', () => {
   console.log('Connected to OBS!')
 })
 
-obs.on('SwitchScenes', (data => console.log(data)))
-
 const events = eventStream({ bindingAddress: '0.0.0.0', port: 7840 })
 
 events
   .pipe(
-    filter((msg) => msg.address.slice(0, 1).pop() === 'scene'),
+    filter((msg) => msg.address.slice(0, 1).pop() === 'obs'),
+    filter((msg) => msg.address.slice(1, 2).pop() === 'scene'),
     tap((msg) => obs.send('SetCurrentScene', { 'scene-name': msg.args[0] })),
   )
   .subscribe()
 
-events.pipe(
-  filter((msg) => msg.address.slice(0, 1).pop() === 'stream'),
-  tap((msg) => {
-    const command = msg.address.slice(1, 2).pop()
-    if (command === 'start') {
-      obs.send('StartStreaming', {})
-    } else if (command === 'stop') {
-      obs.send('StopStreaming')
-    }
-  }),
-)
+events
+  .pipe(
+    filter((msg) => msg.address.slice(0, 1).pop() === 'obs'),
+    filter((msg) => msg.address.slice(1, 2).pop() === 'trx'),
+    tap((msg) => {
+      obs.send('SetCurrentTransition', { 'transition-name': msg.args[0] })
+
+      if (msg.args.length > 1) {
+        obs.send('SetTransitionDuration', {
+          duration: Number.parseFloat(msg.args[1]) * 1000,
+        })
+      }
+    }),
+  )
+  .subscribe()
+
+events
+  .pipe(
+    filter((msg) => msg.address.slice(0, 1).pop() === 'stream'),
+    tap((msg) => {
+      const command = msg.address.slice(1, 2).pop()
+      if (command === 'start') {
+        obs.send('StartStreaming', {})
+      } else if (command === 'stop') {
+        obs.send('StopStreaming')
+      }
+    }),
+  )
+  .subscribe()
+events
+  .pipe(
+    filter((msg) => msg.address.slice(0, 1).pop() === 'route'),
+    tap((msg) => {
+      console.log(msg)
+      const cam = Number.parseInt(msg.args[0])
+      const downstreamOutput = Number.parseInt(msg.args[1])
+
+      const upstreamId = cam > 8 ? 1 : 2
+      const downstreamId = 3
+
+      const upstreamInput = cam > 8 ? cam - 8 : cam
+
+      const cmds = makeConnection(
+        switchers,
+        connections,
+        upstreamId,
+        upstreamInput,
+        downstreamId,
+        downstreamOutput,
+      )
+
+      cmds.forEach((cmd) => {
+        switcherPorts[cmd.sid - 1].write(`${cmd.cmd}\r`)
+      })
+    }),
+  )
+  .subscribe()
