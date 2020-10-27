@@ -52,7 +52,7 @@ events
   .pipe(
     filter((msg) => msg.address.slice(0, 1).pop() === 'obs'),
     filter((msg) => msg.address.slice(1, 2).pop() === 'scene'),
-    tap((msg) => obs.send('SetCurrentScene', { 'scene-name': msg.args[0] })),
+    tap((msg) => obs.send('SetCurrentScene', { 'scene-name': msg.args[0].toString() }).catch(e => console.error(e))),
   )
   .subscribe()
 
