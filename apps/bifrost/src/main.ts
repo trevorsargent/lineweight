@@ -21,9 +21,9 @@ import { switchers } from './switcher'
 const obs = new OBSWebSocket()
 
 const switcherAddresses = [
-  '/dev/tty.usbserial-14130',
-  '/dev/tty.usbserial-14140',
-  '/dev/tty.usbserial-14110',
+  '/dev/tty.usbserial-430',
+  '/dev/tty.usbserial-440',
+  '/dev/tty.usbserial-410',
 ]
 
 const switcherPorts = switcherAddresses.map(
@@ -37,7 +37,7 @@ switcherPorts.forEach((port) => {
 })
 
 obs
-  .connect({ address: '10.0.1.123:4444', password: 'obs', secure: false })
+  .connect({ address: '10.0.1.123:4444', secure: false })
   .catch((e) => console.error('Could not connect to OBS', e))
 
 obs.on('ConnectionOpened', () => {
@@ -45,6 +45,8 @@ obs.on('ConnectionOpened', () => {
 })
 
 const events = eventStream({ bindingAddress: '0.0.0.0', port: 7840 })
+
+events.pipe(tap(x => console.log(x)))
 
 events
   .pipe(
