@@ -113,3 +113,13 @@ events
     }),
   )
   .subscribe()
+
+  events
+  .pipe(
+    filter((msg) => msg.address.slice(0, 1).pop() === 'route' && msg.address.slice(1, 2).pop() === 'clear'),
+    tap((msg) => {
+      const switcherId = Number.parseInt(msg.args[0])
+      switchers[switcherId-1].clearState()
+    }),
+  )
+  .subscribe()
