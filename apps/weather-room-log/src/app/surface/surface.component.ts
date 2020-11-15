@@ -48,6 +48,7 @@ export class SurfaceComponent implements OnInit {
   trackIsReady(trackId: string) {
     this.tracksReady.set(trackId, true)
     if (this.allTracksReady) {
+      this.syncAll()
       this.start()
     }
   }
