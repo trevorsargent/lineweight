@@ -571,6 +571,7 @@
           "inlineTemplate": true,
           "inlineStyle": true,
           "style": "scss",
+
           "skipTests": true
         },
         "@schematics/angular:class": {
@@ -616,9 +617,10 @@
               "apps/weather-room-log/src/assets"
             ],
             "styles": [
-              "apps/weather-room-log/src/styles.scss"
+              "apps/weather-room-log/src/styles.scss",
+              "node_modules/video.js/dist/video-js.min.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/video.js/dist/video.min.js"]
           },
           "configurations": {
             "production": {
