@@ -44,6 +44,8 @@ export class SurfaceComponent implements OnInit {
 
   ngOnInit(): void {
     tracks.forEach((t) => this.tracksReady.set(t.id, false))
+
+    setInterval(this.syncAll, 100)
   }
 
   trackIsReady(trackId: string) {
