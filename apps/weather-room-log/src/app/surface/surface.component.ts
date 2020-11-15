@@ -28,6 +28,7 @@ export class SurfaceComponent implements OnInit {
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
+    this.syncAll()
     switch (event.key) {
       case '1':
         this.activateTrack(tracks[0].id)
