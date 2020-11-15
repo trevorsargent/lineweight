@@ -66,6 +66,9 @@
     },
     "bifrost": {
       "tags": []
+    },
+    "weather-room-log": {
+      "tags": []
     }
   }
 }
