@@ -4,11 +4,17 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { VideoTrackComponent } from './video-track/video-track.component';
+import { SurfaceComponent } from './surface/surface.component';
+import { ControlsComponent } from './controls/controls.component';
+import { DownByTheRiverComponent } from './pages/down-by-the-river/down-by-the-river.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VideoTrackComponent
+    VideoTrackComponent,
+    SurfaceComponent,
+    ControlsComponent,
+    DownByTheRiverComponent
   ],
   imports: [
     BrowserModule,
