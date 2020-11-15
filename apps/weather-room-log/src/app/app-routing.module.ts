@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
+import { SurfaceComponent } from './surface/surface.component'
 import { VideoTrackComponent } from './video-track/video-track.component'
 
 const routes: Routes = [
   {
     path: '',
-    component: VideoTrackComponent,
+    component: SurfaceComponent,
   },
 ]
 

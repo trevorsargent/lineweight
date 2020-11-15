@@ -3,27 +3,36 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core'
-import { tap } from 'rxjs/operators'
+import { takeUntil, tap } from 'rxjs/operators'
 import { DateTime } from 'luxon'
+import { TrackCommand, TrackData } from './video-track.types'
+import { Observable, Subject } from 'rxjs'
 
 @Component({
   selector: 'app-video-track',
   templateUrl: './video-track.component.html',
   styleUrls: ['./video-track.component.scss'],
 })
-export class VideoTrackComponent implements OnInit {
+export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
   constructor(private elementRef: ElementRef) {}
 
   @ViewChild('target', { static: true }) target: ElementRef
-  @ViewChild('surface', { static: true }) surface: ElementRef
 
   @Input()
-  videoSrc: string =
-    'https://storage.googleapis.com/wr-down-by-the-river/171124_B1_HD_001.mp4'
+  src: string
+
+  @Input()
+  id: string
+
+  @Input()
+  commands: Observable<TrackCommand>
+
+  private unsub$ = new Subject<void>()
 
   @Input()
   sound: boolean = false
@@ -35,25 +44,32 @@ export class VideoTrackComponent implements OnInit {
 
   player: HTMLMediaElement
 
+  isActiveTrack: boolean = false
+
   ngOnInit(): void {
     this.initPlayer()
 
-    this.loaded
-      .pipe(
-        tap((_) => {
-          const now = DateTime.local()
-          const seconds = now.toSeconds()
-
-          this.setTime(seconds % this.duration)
-          console.log(this.duration)
+    this.commands.pipe(takeUntil(this.unsub$)).subscribe((cmd) => {
+      switch (cmd.command) {
+        case 'PLAY':
           this.play()
-        }),
-      )
-      .subscribe()
+          break
+        case 'SYNC':
+          this.sync(cmd.time)
+          break
+        case 'ACTIVATE':
+          this.setIsActiveTrack(cmd.trackId)
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.unsub$.next()
+    this.unsub$.complete()
   }
 
   initPlayer() {
-    this.player = document.getElementById('target') as HTMLMediaElement
+    this.player = this.target.nativeElement
 
     this.player.oncanplaythrough = (ev) => {
       this.notifyLoaded()
@@ -64,16 +80,20 @@ export class VideoTrackComponent implements OnInit {
     this.player.loop = true
   }
 
-  setTime(time: number) {
+  setIsActiveTrack(activeTrackId: string) {
+    this.isActiveTrack = activeTrackId === this.id
+  }
+
+  get display() {
+    return this.isActiveTrack ? 'block' : 'none'
+  }
+
+  sync(time: number) {
     if (!this.player.duration) {
       throw Error('Cannot seek, player not loaded')
     }
 
-    if (time < 1 || time > this.player.duration) {
-      throw new Error('Cannot seek beyond the range of the video')
-    }
-
-    this.player.currentTime = time
+    this.player.currentTime = time % this.duration
   }
 
   play() {
@@ -89,20 +109,5 @@ export class VideoTrackComponent implements OnInit {
       this.loaded.emit()
     }
     this._loaded = true
-  }
-
-  openFullscreen() {
-    // Use this.divRef.nativeElement here to request fullscreen
-    const elem = this.surface.nativeElement
-
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen()
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen()
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen()
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen()
-    }
   }
 }

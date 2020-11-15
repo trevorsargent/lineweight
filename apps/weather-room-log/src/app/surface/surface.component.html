@@ -1,1 +1,10 @@
-<p>surface works!</p>
+<div #surface class="surface">
+  <ng-container *ngFor="let track of tracks">
+    <app-video-track
+      [src]="track.src"
+      [id]="track.id"
+      [commands]="commands"
+      (loaded)="trackIsReady(track.id)"
+    ></app-video-track>
+  </ng-container>
+</div>
