@@ -616,11 +616,8 @@
               "apps/weather-room-log/src/favicon.ico",
               "apps/weather-room-log/src/assets"
             ],
-            "styles": [
-              "apps/weather-room-log/src/styles.scss",
-              "node_modules/video.js/dist/video-js.min.css"
-            ],
-            "scripts": ["node_modules/video.js/dist/video.min.js"]
+            "styles": ["apps/weather-room-log/src/styles.scss"],
+            "scripts": []
           },
           "configurations": {
             "production": {
