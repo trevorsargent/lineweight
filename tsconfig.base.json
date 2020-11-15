@@ -10,49 +10,22 @@
     "importHelpers": true,
     "target": "es2019",
     "module": "esnext",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2019",
-      "dom",
-      "ESNext.AsyncIterable"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2019", "dom", "ESNext.AsyncIterable"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@lineweight/laamp": [
-        "libs/laamp/src/index.ts"
-      ],
-      "@lineweight/rx-osc": [
-        "libs/rx-osc/src/index.ts"
-      ],
-      "@lineweight/traffik": [
-        "libs/traffik/src/index.ts"
-      ],
-      "@lineweight/types": [
-        "libs/types/src/index.ts"
-      ],
-      "@lineweight/laamp-ql": [
-        "libs/laamp-ql/src/index.ts"
-      ],
-      "@lineweight/kmbx-meats": [
-        "libs/kmbx-meats/src/index.ts"
-      ],
-      "@lineweight/assets": [
-        "assets"
-      ],
-      "@lineweight/router/core": [
-        "libs/router/core/src/index.ts"
-      ],
-      "@lineweight/router/switch": [
-        "libs/router/switch/src/index.ts"
-      ]
+      "@lineweight/laamp": ["libs/laamp/src/index.ts"],
+      "@lineweight/rx-osc": ["libs/rx-osc/src/index.ts"],
+      "@lineweight/traffik": ["libs/traffik/src/index.ts"],
+      "@lineweight/types": ["libs/types/src/index.ts"],
+      "@lineweight/laamp-ql": ["libs/laamp-ql/src/index.ts"],
+      "@lineweight/kmbx-meats": ["libs/kmbx-meats/src/index.ts"],
+      "@lineweight/assets": ["assets"],
+      "@lineweight/router/core": ["libs/router/core/src/index.ts"],
+      "@lineweight/router/switch": ["libs/router/switch/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
