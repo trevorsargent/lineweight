@@ -57,6 +57,7 @@ export class SurfaceComponent implements OnInit {
   }
 
   start() {
+    console.log('they are beautiful and strong and have a new media player')
     this.commands.next({ command: 'ACTIVATE', trackId: tracks[0].id })
     this.commands.next({ command: 'PLAY' })
   }
