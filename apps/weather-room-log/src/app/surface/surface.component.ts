@@ -54,7 +54,6 @@ export class SurfaceComponent implements OnInit {
   syncAll() {
     const now = DateTime.local()
     const seconds = now.toSeconds()
-    console.log(seconds)
     this.publishEvent({ command: 'SYNC', time: seconds })
   }
 
