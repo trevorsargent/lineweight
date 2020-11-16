@@ -2,15 +2,15 @@ import { TrackData } from './video-track/video-track.types'
 
 export const tracks: TrackData[] = [
   {
-    id: 'cyan',
-    src: 'https://storage.googleapis.com/wr-down-by-the-river/cyanotype.mov',
+    id: 'Rebecca',
+    src: 'https://storage.googleapis.com/wr-down-by-the-river/REBECCA_2.mp4',
   },
   {
-    id: 'sepia',
-    src: 'https://storage.googleapis.com/wr-down-by-the-river/sepia.mov',
+    id: 'Cristi',
+    src: 'https://storage.googleapis.com/wr-down-by-the-river/CRISTI_2.mp4',
   },
-  {
-    id: 'red',
-    src: 'https://storage.googleapis.com/wr-down-by-the-river/red.mov',
-  },
+  // {
+  //   id: 'red',
+  //   src: 'https://storage.googleapis.com/wr-down-by-the-river/red.mov',
+  // },
 ]

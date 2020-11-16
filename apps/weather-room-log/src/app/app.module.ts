@@ -7,6 +7,7 @@ import { VideoTrackComponent } from './video-track/video-track.component';
 import { SurfaceComponent } from './surface/surface.component';
 import { ControlsComponent } from './controls/controls.component';
 import { DownByTheRiverComponent } from './pages/down-by-the-river/down-by-the-river.component';
+import { VideoCollectionComponent } from './video-collection/video-collection.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DownByTheRiverComponent } from './pages/down-by-the-river/down-by-the-r
     VideoTrackComponent,
     SurfaceComponent,
     ControlsComponent,
-    DownByTheRiverComponent
+    DownByTheRiverComponent,
+    VideoCollectionComponent
   ],
   imports: [
     BrowserModule,

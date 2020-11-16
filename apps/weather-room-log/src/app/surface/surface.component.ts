@@ -67,14 +67,16 @@ export class SurfaceComponent implements OnInit {
   syncAll() {
     const now = DateTime.local()
     const seconds = now.toSeconds()
+    console.log(seconds)
     this.publishEvent({ command: 'SYNC', time: seconds })
   }
 
-  publishEvent(command: TrackCommand){
+  publishEvent(command: TrackCommand) {
     this.commands.next(command)
   }
 
   activateTrack(trackId: string) {
+    this.syncAll()
     this.publishEvent({ command: 'ACTIVATE', trackId })
   }
 

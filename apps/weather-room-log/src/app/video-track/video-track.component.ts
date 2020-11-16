@@ -82,6 +82,8 @@ export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
 
   setIsActiveTrack(activeTrackId: string) {
     this.isActiveTrack = activeTrackId === this.id
+    this.player.muted = !this.isActiveTrack
+    this.play()
   }
 
   get opacity() {
