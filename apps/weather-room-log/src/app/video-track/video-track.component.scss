@@ -5,4 +5,5 @@ video {
   height: 100vh;
   object-fit: cover;
   position: absolute;
+  transition: opacity 1s;
 }

@@ -1,1 +1,3 @@
-<p>controls works!</p>
+<button *ngFor="let track of tracks" (click)="select(track.id)">{{track.id}}</button>
+
+<button (click)="fullscreen()">fullscreen</button>

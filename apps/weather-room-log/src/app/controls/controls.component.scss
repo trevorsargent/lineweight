@@ -1,0 +1,14 @@
+:host {
+    position: absolute;
+    bottom: 0;
+    left: auto;
+    right: auto; 
+    z-index: 999;
+}
+
+button {
+    border: 1px solid blue;
+    background: rgba($color: #000000, $alpha: 0.9);
+    color: white;
+    padding: 5px;
+}

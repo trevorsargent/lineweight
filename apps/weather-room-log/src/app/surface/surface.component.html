@@ -7,4 +7,5 @@
       (loaded)="trackIsReady(track.id)"
     ></app-video-track>
   </ng-container>
+  <app-controls [tracks]="tracks" (commands)="publishEvent($event)" (fs)="openFullscreen()"></app-controls>
 </div>

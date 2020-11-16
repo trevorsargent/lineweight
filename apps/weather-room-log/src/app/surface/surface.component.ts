@@ -44,8 +44,6 @@ export class SurfaceComponent implements OnInit {
 
   ngOnInit(): void {
     tracks.forEach((t) => this.tracksReady.set(t.id, false))
-
-    setInterval(this.syncAll, 100)
   }
 
   trackIsReady(trackId: string) {
@@ -62,18 +60,22 @@ export class SurfaceComponent implements OnInit {
 
   start() {
     console.log('they are beautiful and strong and have a new media player')
-    this.commands.next({ command: 'ACTIVATE', trackId: tracks[0].id })
-    this.commands.next({ command: 'PLAY' })
+    this.publishEvent({ command: 'ACTIVATE', trackId: tracks[0].id })
+    this.publishEvent({ command: 'PLAY' })
   }
 
   syncAll() {
     const now = DateTime.local()
     const seconds = now.toSeconds()
-    this.commands.next({ command: 'SYNC', time: seconds })
+    this.publishEvent({ command: 'SYNC', time: seconds })
+  }
+
+  publishEvent(command: TrackCommand){
+    this.commands.next(command)
   }
 
   activateTrack(trackId: string) {
-    this.commands.next({ command: 'ACTIVATE', trackId })
+    this.publishEvent({ command: 'ACTIVATE', trackId })
   }
 
   openFullscreen() {

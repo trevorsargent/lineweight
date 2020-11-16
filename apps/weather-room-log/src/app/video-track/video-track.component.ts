@@ -84,8 +84,8 @@ export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
     this.isActiveTrack = activeTrackId === this.id
   }
 
-  get display() {
-    return this.isActiveTrack ? 'block' : 'none'
+  get opacity() {
+    return this.isActiveTrack ? 1 : 0
   }
 
   sync(time: number) {
