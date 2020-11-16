@@ -34,7 +34,14 @@ button {
   border: none;
   border-radius: 3px;
   background: rgba($color: #000000, $alpha: 0.5);
-  color: white;
+  color: #eee;
   padding: 10px;
   opacity: 0.3;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ccc;
+  color: #222;
 }
