@@ -61,6 +61,7 @@ export class SurfaceComponent implements OnInit {
   start() {
     console.log('they are beautiful and strong and have a new media player')
     this.publishEvent({ command: 'ACTIVATE', trackId: tracks[0].id })
+    this.publishEvent({ command: 'SYNC', time: DateTime.local().toSeconds() })
     this.publishEvent({ command: 'PLAY' })
   }
 
@@ -68,7 +69,7 @@ export class SurfaceComponent implements OnInit {
     const now = DateTime.local()
     const seconds = now.toSeconds()
     console.log(seconds)
-    this.publishEvent({ command: 'SYNC', time: seconds })
+    // this.publishEvent({ command: 'SYNC', time: seconds })
   }
 
   publishEvent(command: TrackCommand) {
@@ -76,7 +77,6 @@ export class SurfaceComponent implements OnInit {
   }
 
   activateTrack(trackId: string) {
-    this.syncAll()
     this.publishEvent({ command: 'ACTIVATE', trackId })
   }
 
