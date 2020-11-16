@@ -1,6 +1,9 @@
 <div class="wrap">
   <div class="buttons">
-    <button *ngFor="let track of tracks" (click)="select(track.id)">
+    <button
+      *ngFor="let track of tracks; trackBy: trackBy"
+      (click)="select(track.id)"
+    >
       {{ track.id }}
     </button>
 

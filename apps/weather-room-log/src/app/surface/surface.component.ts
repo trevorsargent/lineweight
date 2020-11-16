@@ -18,29 +18,21 @@ import { TrackCommand, TrackData } from '../video-track/video-track.types'
 export class SurfaceComponent implements OnInit {
   constructor() {}
 
+  started: boolean = false
+
   tracks: TrackData[] = tracks
 
   commands = new Subject<TrackCommand>()
 
   tracksReady = new Map<string, boolean>()
 
-  @ViewChild('surface', { static: true }) surface: ElementRef
-
-  @HostListener('document:keypress', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    this.syncAll()
-    switch (event.key) {
-      case '1':
-        this.activateTrack(tracks[0].id)
-        break
-      case '2':
-        this.activateTrack(tracks[1].id)
-        break
-      case '3':
-        this.activateTrack(tracks[2].id)
-        break
-    }
+  get allTracksReady() {
+    return Array.from(this.tracksReady.values()).every((v) => v)
   }
+
+  activeTrackId: string = null
+
+  @ViewChild('surface', { static: true }) surface: ElementRef
 
   ngOnInit(): void {
     tracks.forEach((t) => this.tracksReady.set(t.id, false))
@@ -50,34 +42,32 @@ export class SurfaceComponent implements OnInit {
     this.tracksReady.set(trackId, true)
     if (this.allTracksReady) {
       this.syncAll()
-      this.start()
     }
   }
 
-  get allTracksReady() {
-    return Array.from(this.tracksReady.values()).every((v) => v)
-  }
-
   start() {
-    console.log('they are beautiful and strong and have a new media player')
-    this.publishEvent({ command: 'ACTIVATE', trackId: tracks[0].id })
-    this.publishEvent({ command: 'SYNC', time: DateTime.local().toSeconds() })
+    this.started = true
     this.publishEvent({ command: 'PLAY' })
+    this.activateTrack(tracks[0].id)
   }
 
   syncAll() {
     const now = DateTime.local()
     const seconds = now.toSeconds()
     console.log(seconds)
-    // this.publishEvent({ command: 'SYNC', time: seconds })
-  }
-
-  publishEvent(command: TrackCommand) {
-    this.commands.next(command)
+    this.publishEvent({ command: 'SYNC', time: seconds })
   }
 
   activateTrack(trackId: string) {
-    this.publishEvent({ command: 'ACTIVATE', trackId })
+    this.activeTrackId = trackId
+  }
+
+  private publishEvent(command: TrackCommand) {
+    this.commands.next(command)
+  }
+
+  trackBy(_: number, track: TrackData) {
+    return track.id
   }
 
   openFullscreen() {

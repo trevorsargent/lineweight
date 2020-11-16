@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core'
+import { NumberValueAccessor } from '@angular/forms'
 import { TrackData, TrackCommand } from '../video-track/video-track.types'
 
 @Component({
@@ -13,7 +14,7 @@ export class ControlsComponent implements OnInit {
   tracks: TrackData[]
 
   @Output()
-  commands = new EventEmitter<TrackCommand>()
+  activeTrack = new EventEmitter<string>()
 
   @Output()
   fs = new EventEmitter<void>()
@@ -21,10 +22,14 @@ export class ControlsComponent implements OnInit {
   ngOnInit(): void {}
 
   select(trackId: string) {
-    this.commands.emit({command: 'ACTIVATE', trackId})
+    this.activeTrack.emit(trackId)
   }
 
-  fullscreen(){
+  trackBy(_: number, track: TrackData) {
+    return track.id
+  }
+
+  fullscreen() {
     this.fs.emit()
   }
 }

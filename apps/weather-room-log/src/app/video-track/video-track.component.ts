@@ -44,7 +44,8 @@ export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
 
   player: HTMLMediaElement
 
-  isActiveTrack: boolean = false
+  @Input()
+  activeTrackId: string
 
   ngOnInit(): void {
     this.initPlayer()
@@ -57,8 +58,6 @@ export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
         case 'SYNC':
           this.sync(cmd.time)
           break
-        case 'ACTIVATE':
-          this.setIsActiveTrack(cmd.trackId)
       }
     })
   }
@@ -80,14 +79,20 @@ export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
     this.player.loop = true
   }
 
-  setIsActiveTrack(activeTrackId: string) {
-    this.isActiveTrack = activeTrackId === this.id
-    this.player.muted = !this.isActiveTrack
-    this.play()
+  get isActiveTrack() {
+    return this.id === this.activeTrackId
+  }
+
+  get muted() {
+    return !this.isActiveTrack
   }
 
   get opacity() {
     return this.isActiveTrack ? 1 : 0
+  }
+
+  get duration() {
+    return this.player.duration
   }
 
   sync(time: number) {
@@ -95,15 +100,12 @@ export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
       throw Error('Cannot seek, player not loaded')
     }
 
-    this.player.currentTime = time % this.duration
+    const timeLock = time % this.duration
+    this.player.currentTime = timeLock
   }
 
   play() {
     this.player.play()
-  }
-
-  get duration() {
-    return this.player.duration
   }
 
   private notifyLoaded() {

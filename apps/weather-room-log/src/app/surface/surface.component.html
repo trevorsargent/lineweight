@@ -1,11 +1,19 @@
+<button *ngIf="!started && allTracksReady" (click)="start()">start</button>
+
 <div #surface class="surface">
-  <ng-container *ngFor="let track of tracks">
+  <ng-container *ngFor="let track of tracks; trackBy: trackBy">
     <app-video-track
+      [activeTrackId]="activeTrackId"
       [src]="track.src"
       [id]="track.id"
       [commands]="commands"
       (loaded)="trackIsReady(track.id)"
     ></app-video-track>
   </ng-container>
-  <app-controls [tracks]="tracks" (commands)="publishEvent($event)" (fs)="openFullscreen()"></app-controls>
+  <app-controls
+    *ngIf="started"
+    [tracks]="tracks"
+    (activeTrack)="activateTrack($event)"
+    (fs)="openFullscreen()"
+  ></app-controls>
 </div>
