@@ -1,0 +1,17 @@
+.spacer {
+  height: 100vh;
+}
+
+.wrapper {
+  background-color: #112;
+  padding: 100px 300px;
+  color: #ddd;
+}
+
+p::before {
+  content: '- ';
+}
+
+h1,
+h2 {
+}

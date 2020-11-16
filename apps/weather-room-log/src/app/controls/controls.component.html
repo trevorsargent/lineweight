@@ -1,3 +1,9 @@
-<button *ngFor="let track of tracks" (click)="select(track.id)">{{track.id}}</button>
+<div class="wrap">
+  <div class="buttons">
+    <button *ngFor="let track of tracks" (click)="select(track.id)">
+      {{ track.id }}
+    </button>
 
-<button (click)="fullscreen()">fullscreen</button>
+    <button (click)="fullscreen()">fullscreen</button>
+  </div>
+</div>
