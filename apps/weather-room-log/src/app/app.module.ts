@@ -8,6 +8,8 @@ import { SurfaceComponent } from './surface/surface.component';
 import { ControlsComponent } from './controls/controls.component';
 import { DownByTheRiverComponent } from './pages/down-by-the-river/down-by-the-river.component';
 import { VideoCollectionComponent } from './video-collection/video-collection.component';
+import { PaperComponent } from './paper/paper.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { VideoCollectionComponent } from './video-collection/video-collection.co
     SurfaceComponent,
     ControlsComponent,
     DownByTheRiverComponent,
-    VideoCollectionComponent
+    VideoCollectionComponent,
+    PaperComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
