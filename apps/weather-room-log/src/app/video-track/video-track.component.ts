@@ -92,6 +92,7 @@ export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
   }
 
   get duration() {
+    return 1432
     return this.player.duration
   }
 

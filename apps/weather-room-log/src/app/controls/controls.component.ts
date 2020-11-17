@@ -13,11 +13,20 @@ export class ControlsComponent implements OnInit {
   @Input()
   tracks: TrackData[]
 
+  @Input()
+  loaded: boolean = false
+
+  @Input()
+  started: boolean = false
+
   @Output()
   activeTrack = new EventEmitter<string>()
 
   @Output()
-  fs = new EventEmitter<void>()
+  _start = new EventEmitter<void>()
+
+  @Output()
+  _fullscreen = new EventEmitter<void>()
 
   ngOnInit(): void {}
 
@@ -30,6 +39,10 @@ export class ControlsComponent implements OnInit {
   }
 
   fullscreen() {
-    this.fs.emit()
+    this._fullscreen.emit()
+  }
+
+  start() {
+    this._start.emit()
   }
 }

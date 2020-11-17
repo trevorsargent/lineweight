@@ -1,5 +1,3 @@
-<button *ngIf="!started && allTracksReady" (click)="start()">start</button>
-
 <div #surface class="surface">
   <ng-container *ngFor="let track of tracks; trackBy: trackBy">
     <app-video-track
@@ -11,9 +9,11 @@
     ></app-video-track>
   </ng-container>
   <app-controls
-    *ngIf="started"
+    [loaded]="allTracksReady"
+    [started]="started"
     [tracks]="tracks"
     (activeTrack)="activateTrack($event)"
-    (fs)="openFullscreen()"
+    (_fullscreen)="openFullscreen()"
+    (_start)="start()"
   ></app-controls>
 </div>
