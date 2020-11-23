@@ -26,7 +26,11 @@ export class ScheduleService {
     .map((_, idx) => idx)
     .map((n) => this.opening.plus(Duration.fromObject({ days: n })))
 
-  private events: Schedule = this.showRun
+  private preview: DateTime = DateTime.fromObject({
+    minute: 31,
+  })
+
+  private events: Schedule = [...this.showRun, this.preview]
 
   getNextEvent(): DateTime {
     return this.events
