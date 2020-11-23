@@ -23,17 +23,11 @@ export class ScheduleService {
 
   private today: DateTime = DateTime.fromObject({
     ...this.contantInfo,
-    hour: 9,
-    minute: 6,
+    hour: 13,
+    minute: 30,
   })
 
-  private today2: DateTime = DateTime.fromObject({
-    ...this.contantInfo,
-    hour: 11,
-    minute: 12,
-  })
-
-  private events: Schedule = [this.today, this.today2, this.opening]
+  private events: Schedule = [this.today, this.opening]
 
   getNextEvent(): DateTime {
     return this.events
