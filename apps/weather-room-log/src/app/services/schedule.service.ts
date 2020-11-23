@@ -21,7 +21,12 @@ export class ScheduleService {
     ...this.constantInfo,
   })
 
-  private events: Schedule = [this.opening]
+  private showRun: DateTime[] = new Array(11)
+    .fill(null)
+    .map((_, idx) => idx)
+    .map((n) => this.opening.plus(Duration.fromObject({ days: n })))
+
+  private events: Schedule = this.showRun
 
   getNextEvent(): DateTime {
     return this.events
