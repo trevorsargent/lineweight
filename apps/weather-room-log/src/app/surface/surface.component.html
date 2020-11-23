@@ -4,6 +4,11 @@
       <span>{{ time.value }}</span>
     </div>
   </div>
+  <div *ngIf="schedule.getCurrentEventTimeCode() > 1412" class="next">
+    <a href="/next"
+      >for visions of the future and weather room apendicies... click here>
+    </a>
+  </div>
   <ng-container *ngFor="let track of tracks; trackBy: trackBy">
     <app-video-track
       [activeTrackId]="activeTrackId"

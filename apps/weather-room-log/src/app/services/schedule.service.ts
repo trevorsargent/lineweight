@@ -9,25 +9,25 @@ export class ScheduleService {
     seconds: 52,
   })
 
-  private contantInfo = {
+  private constantInfo = {
     hour: 19,
-    minute: 30,
+    minute: 31,
   }
 
   private opening: DateTime = DateTime.fromObject({
     year: 2020,
     month: 11,
     day: 26,
-    ...this.contantInfo,
+    ...this.constantInfo,
   })
 
   private today: DateTime = DateTime.fromObject({
-    ...this.contantInfo,
-    hour: 13,
-    minute: 30,
+    ...this.constantInfo,
+    hour: 12,
+    minute: 52,
   })
 
-  private events: Schedule = [this.today, this.opening]
+  private events: Schedule = [this.opening]
 
   getNextEvent(): DateTime {
     return this.events
