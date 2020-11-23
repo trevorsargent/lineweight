@@ -21,19 +21,34 @@ export class VideoCollectionComponent implements OnInit {
 
   videos: TrackData[] = [
     {
-      id: 'Taylor',
+      id: 'Amelia',
       src:
-        'https://storage.googleapis.com/wr-youth-predictions/Dear%202020%20-%20Taylor%20Putzek%20PETE%20Project.mp4',
+        'https://storage.googleapis.com/wr-youth-predictions/Amelia%20Dusevoir.mov',
+    },
+    {
+      id: 'Arjun',
+      src:
+        'https://storage.googleapis.com/wr-youth-predictions/Arjun%20Pai.mp4',
+    },
+    {
+      id: 'Della',
+      src:
+        'https://storage.googleapis.com/wr-youth-predictions/Della%20Cosloy.mp4',
     },
     {
       id: 'Elijah',
       src:
-        'https://storage.googleapis.com/wr-youth-predictions/PETE%20Climate%20Change%20Project%20Elijah%20Castillo.mp4',
+        'https://storage.googleapis.com/wr-youth-predictions/Elijah%20Castillo.mp4',
     },
     {
       id: 'Jamie',
       src:
-        'https://storage.googleapis.com/wr-youth-predictions/Weather%20Room%20(Jamie%20Mack).mp4',
+        'https://storage.googleapis.com/wr-youth-predictions/Jamie%20Mack.mp4',
+    },
+    {
+      id: 'Taylor',
+      src:
+        'https://storage.googleapis.com/wr-youth-predictions/Taylor%20Putzek.mp4',
     },
   ]
 

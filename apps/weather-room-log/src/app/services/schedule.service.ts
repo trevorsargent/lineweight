@@ -21,12 +21,6 @@ export class ScheduleService {
     ...this.constantInfo,
   })
 
-  private today: DateTime = DateTime.fromObject({
-    ...this.constantInfo,
-    hour: 12,
-    minute: 52,
-  })
-
   private events: Schedule = [this.opening]
 
   getNextEvent(): DateTime {
