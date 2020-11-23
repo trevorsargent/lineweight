@@ -1,10 +1,30 @@
 :host {
-  display: flex;
-  flex-direction: row;
-  overflow: scroll;
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  grid-gap: 0.5rem;
 }
 
 video {
-  height: 400px;
-  width: 711px;
+  width: 100%;
+}
+
+.list {
+  border-top: 1px solid #ddd;
+}
+
+.option {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  height: 3rem;
+
+  &.active {
+    span {
+      &::after {
+        content: '>';
+      }
+    }
+  }
 }

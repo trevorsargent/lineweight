@@ -1,0 +1,32 @@
+.wrap {
+  margin: 5rem 17rem 5rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+  color: #777;
+}
+
+a {
+  color: #111;
+  font-weight: bold;
+}
+
+.program {
+  p {
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+  }
+
+  ul {
+    margin: 0;
+  }
+
+  li {
+    list-style: none;
+    &::before {
+      content: '- ';
+    }
+    margin-left: 0.5rem;
+  }
+}

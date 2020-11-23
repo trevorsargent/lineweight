@@ -9,23 +9,35 @@ import { TrackData } from '../video-track/video-track.types'
 export class VideoCollectionComponent implements OnInit {
   constructor() {}
 
+  public currentTrack = null
+
+  get currentVideo() {
+    return this.videos.find((v) => v.id === this.currentTrack)
+  }
+
+  setCurrent(id: string) {
+    this.currentTrack = id
+  }
+
   videos: TrackData[] = [
     {
-      id: 'taylor',
+      id: 'Taylor',
       src:
         'https://storage.googleapis.com/wr-youth-predictions/Dear%202020%20-%20Taylor%20Putzek%20PETE%20Project.mp4',
     },
     {
-      id: 'elijah',
+      id: 'Elijah',
       src:
         'https://storage.googleapis.com/wr-youth-predictions/PETE%20Climate%20Change%20Project%20Elijah%20Castillo.mp4',
     },
     {
-      id: 'jamie',
+      id: 'Jamie',
       src:
         'https://storage.googleapis.com/wr-youth-predictions/Weather%20Room%20(Jamie%20Mack).mp4',
     },
   ]
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentTrack = this.videos[0].id
+  }
 }

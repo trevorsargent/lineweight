@@ -1,1 +1,15 @@
-<video *ngFor="let video of videos" [src]="video.src" controls></video>
+<div class="list">
+  <ng-container *ngFor="let video of videos">
+    <div
+      class="option"
+      [class.active]="video.id === currentTrack"
+      (click)="setCurrent(video.id)"
+    >
+      <span>
+        {{ video.id }}
+      </span>
+    </div>
+  </ng-container>
+</div>
+
+<video [src]="currentVideo.src" controls></video>

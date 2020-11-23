@@ -1,11 +1,8 @@
 @import '../../mixins';
 
 .surface {
-  color: #444;
-  background-color: #eee;
   text-shadow: #bbb 0px 0px 15px;
   transition: all 1s;
-
   @include fullWindow();
 }
 
