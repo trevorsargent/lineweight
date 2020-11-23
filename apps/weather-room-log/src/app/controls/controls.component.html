@@ -1,9 +1,5 @@
 <div class="wrap">
-  <h2 *ngIf="!loaded">loading...</h2>
-  <div class="buttons" *ngIf="!started && loaded">
-    <button (click)="start()">start</button>
-  </div>
-  <div *ngIf="started" class="buttons">
+  <div *ngIf="state.started && state.active" class="buttons">
     <button
       *ngFor="let track of tracks; trackBy: trackBy"
       (click)="select(track.id)"

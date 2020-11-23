@@ -1,4 +1,9 @@
-<div #surface class="surface">
+<div #surface class="surface" [class.invert]="state.started">
+  <div class="countdown" *ngIf="!schedule.getCurrentEventTimeCode()">
+    <div class="wrap" *ngIf="{ value: timeToNextShow | async } as time">
+      <span>{{ time.value }}</span>
+    </div>
+  </div>
   <ng-container *ngFor="let track of tracks; trackBy: trackBy">
     <app-video-track
       [activeTrackId]="activeTrackId"
@@ -9,11 +14,8 @@
     ></app-video-track>
   </ng-container>
   <app-controls
-    [loaded]="allTracksReady"
-    [started]="started"
     [tracks]="tracks"
     (activeTrack)="activateTrack($event)"
     (_fullscreen)="openFullscreen()"
-    (_start)="start()"
   ></app-controls>
 </div>

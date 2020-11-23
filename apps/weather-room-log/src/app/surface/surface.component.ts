@@ -6,8 +6,11 @@ import {
   ViewChild,
 } from '@angular/core'
 import { DateTime } from 'luxon'
-import { Subject } from 'rxjs'
+import { interval, Subject } from 'rxjs'
+import { map, tap } from 'rxjs/operators'
 import { tracks } from '../app.tracks'
+import { ScheduleService } from '../services/schedule.service'
+import { StateService } from '../services/state.service'
 import { TrackCommand, TrackData } from '../video-track/video-track.types'
 
 @Component({
@@ -16,19 +19,17 @@ import { TrackCommand, TrackData } from '../video-track/video-track.types'
   styleUrls: ['./surface.component.scss'],
 })
 export class SurfaceComponent implements OnInit {
-  constructor() {}
+  constructor(public state: StateService, public schedule: ScheduleService) {}
 
-  started: boolean = false
+  timeToNextShow = interval(100).pipe(
+    map((_) => this.schedule.getNextEvent().diffNow().toFormat('hh:mm:ss')),
+  )
 
   tracks: TrackData[] = tracks
 
   commands = new Subject<TrackCommand>()
 
   tracksReady = new Map<string, boolean>()
-
-  get allTracksReady() {
-    return Array.from(this.tracksReady.values()).every((v) => v)
-  }
 
   activeTrackId: string = null
 
@@ -40,21 +41,23 @@ export class SurfaceComponent implements OnInit {
 
   trackIsReady(trackId: string) {
     this.tracksReady.set(trackId, true)
-    if (this.allTracksReady) {
-      this.syncAll()
+    if (Array.from(this.tracksReady.values()).every((v) => v)) {
+      this.state.notifyLoaded()
+      this.state.registerStartHook(this.activate.bind(this))
     }
   }
 
-  start() {
-    this.started = true
+  activate() {
+    this.state.notifyActive()
+    const active = Math.floor(Math.random() * tracks.length)
     this.publishEvent({ command: 'PLAY' })
-    this.activateTrack(tracks[0].id)
+    this.syncAll()
+    this.activateTrack(tracks[active].id)
   }
 
   syncAll() {
-    const now = DateTime.local()
-    const seconds = now.toSeconds()
-    this.publishEvent({ command: 'SYNC', time: seconds })
+    const currentTime = this.schedule.getCurrentEventTimeCode()
+    this.publishEvent({ command: 'SYNC', time: currentTime ?? 0 })
   }
 
   activateTrack(trackId: string) {

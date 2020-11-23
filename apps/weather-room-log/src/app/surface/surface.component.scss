@@ -1,5 +1,29 @@
+@import '../../mixins';
+
 .surface {
-  background-color: black;
+  color: #444;
+  background-color: #eee;
+  text-shadow: #bbb 0px 0px 15px;
+  transition: all 1s;
+
+  @include fullWindow();
+}
+
+.invert {
+  color: #eee;
+  background-color: #222;
+  text-shadow: #666 0px 0px 15px;
+}
+
+.countdown {
+  @include fullWindow();
+
+  span {
+    font-weight: 100;
+    font-size: 3rem;
+    margin-bottom: 10rem;
+    transition: color 1s;
+  }
 }
 
 video {

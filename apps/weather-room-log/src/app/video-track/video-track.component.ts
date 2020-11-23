@@ -12,6 +12,7 @@ import { takeUntil, tap } from 'rxjs/operators'
 import { DateTime } from 'luxon'
 import { TrackCommand, TrackData } from './video-track.types'
 import { Observable, Subject } from 'rxjs'
+import { ScheduleService } from '../services/schedule.service'
 
 @Component({
   selector: 'app-video-track',
@@ -19,7 +20,10 @@ import { Observable, Subject } from 'rxjs'
   styleUrls: ['./video-track.component.scss'],
 })
 export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
-  constructor(private elementRef: ElementRef) {}
+  constructor(
+    private elementRef: ElementRef,
+    private schedule: ScheduleService,
+  ) {}
 
   @ViewChild('target', { static: true }) target: ElementRef
 
@@ -92,8 +96,7 @@ export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
   }
 
   get duration() {
-    return 1432
-    return this.player.duration
+    return this.schedule.EVENT_DURATION.as('seconds')
   }
 
   sync(time: number) {

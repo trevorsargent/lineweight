@@ -1,15 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser'
+import { NgModule } from '@angular/core'
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { VideoTrackComponent } from './video-track/video-track.component';
-import { SurfaceComponent } from './surface/surface.component';
-import { ControlsComponent } from './controls/controls.component';
-import { DownByTheRiverComponent } from './pages/down-by-the-river/down-by-the-river.component';
-import { VideoCollectionComponent } from './video-collection/video-collection.component';
-import { PaperComponent } from './paper/paper.component';
-import { NavigationComponent } from './navigation/navigation.component';
+import { AppRoutingModule } from './app-routing.module'
+import { AppComponent } from './app.component'
+import { VideoTrackComponent } from './video-track/video-track.component'
+import { SurfaceComponent } from './surface/surface.component'
+import { ControlsComponent } from './controls/controls.component'
+import { DownByTheRiverComponent } from './pages/down-by-the-river/down-by-the-river.component'
+import { VideoCollectionComponent } from './video-collection/video-collection.component'
+import { PaperComponent } from './paper/paper.component'
+import { NavigationComponent } from './navigation/navigation.component'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [
@@ -20,13 +21,10 @@ import { NavigationComponent } from './navigation/navigation.component';
     DownByTheRiverComponent,
     VideoCollectionComponent,
     PaperComponent,
-    NavigationComponent
+    NavigationComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

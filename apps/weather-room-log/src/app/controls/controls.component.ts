@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core'
 import { NumberValueAccessor } from '@angular/forms'
+import { StateService } from '../services/state.service'
 import { TrackData, TrackCommand } from '../video-track/video-track.types'
 
 @Component({
@@ -8,22 +9,13 @@ import { TrackData, TrackCommand } from '../video-track/video-track.types'
   styleUrls: ['./controls.component.scss'],
 })
 export class ControlsComponent implements OnInit {
-  constructor() {}
+  constructor(public state: StateService) {}
 
   @Input()
   tracks: TrackData[]
 
-  @Input()
-  loaded: boolean = false
-
-  @Input()
-  started: boolean = false
-
   @Output()
   activeTrack = new EventEmitter<string>()
-
-  @Output()
-  _start = new EventEmitter<void>()
 
   @Output()
   _fullscreen = new EventEmitter<void>()
@@ -40,9 +32,5 @@ export class ControlsComponent implements OnInit {
 
   fullscreen() {
     this._fullscreen.emit()
-  }
-
-  start() {
-    this._start.emit()
   }
 }
