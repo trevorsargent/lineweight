@@ -2,8 +2,8 @@ import { PerfRecorder } from '@angular/compiler-cli/src/ngtsc/perf'
 import { Component, OnInit } from '@angular/core'
 import { DateTime, Duration } from 'luxon'
 import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
-import { LogService } from '../../services/log.service'
+import { map, tap } from 'rxjs/operators'
+import { LogService, PerformanceData } from '../../services/log.service'
 
 @Component({
   selector: 'app-flocks',
@@ -14,10 +14,10 @@ export class FlocksComponent implements OnInit {
   performances$: Observable<Performance[]>
 
   constructor(log: LogService) {
-    log.performances$
-      .pipe(
-        map((set) => {
-          return Object.entries(set).map(([startTimeMilis, p]) => ({
+    this.performances$ = log.performances$.pipe(
+      map((set) => {
+        return Object.entries(set).map(
+          ([startTimeMilis, p]: [string, PerformanceData]) => ({
             startTime: DateTime.fromMillis(Number.parseInt(startTimeMilis)),
             viewers: Object.entries(p).map(
               ([userId, v]) =>
@@ -28,13 +28,31 @@ export class FlocksComponent implements OnInit {
                       DateTime.fromMillis(Number.parseInt(startTimeMilis)),
                     ),
                     trackId: data.trackId,
+                    held: (
+                      DateTime.fromISO(
+                        Object.entries(v)
+                          .map(([_, action]) => action)
+                          .sort((b, a) =>
+                            DateTime.fromISO(b.timestamp)
+                              .diff(DateTime.fromISO(a.timestamp))
+                              .as('milliseconds'),
+                          )
+                          .find(
+                            (a) =>
+                              DateTime.fromISO(a.timestamp)
+                                .diff(DateTime.fromISO(data.timestamp))
+                                .as('milliseconds') > 0,
+                          )?.timestamp,
+                      ) ?? undefined
+                    ).diff(DateTime.fromISO(data.timestamp)),
                   })),
                 },
             ),
-          }))
-        }),
-      )
-      .subscribe((x) => console.log(x))
+          }),
+        )
+      }),
+      tap((x) => console.log(x)),
+    )
   }
 
   ngOnInit(): void {}
@@ -53,4 +71,5 @@ interface Viewer {
 interface Action {
   timestamp: Duration
   trackId: string
+  held: Duration
 }

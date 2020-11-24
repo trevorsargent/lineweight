@@ -57,19 +57,19 @@ interface ActionLogData {
   timestamp: string
 }
 
-interface ActionLog {
+export interface ActionLog {
   trackId: string
   timestamp: DateTime
 }
 
-interface PerformanceSet {
-  [perfStateMilis: number]: Performance
+export interface PerformanceSet {
+  [perfStateMilis: number]: PerformanceData
 }
 
-interface Performance {
-  [userId: string]: Viewer
+export interface PerformanceData {
+  [userId: string]: ViewerData
 }
 
-interface Viewer {
+export interface ViewerData {
   [index: string]: ActionLogData
 }

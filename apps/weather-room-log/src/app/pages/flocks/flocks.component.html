@@ -1,3 +1,24 @@
 <div class="wrap">
   <h1>Flocks</h1>
+
+  <ng-container *ngFor="let perf of performances$ | async">
+    <div class="performance">
+      <h2>{{ perf.startTime.toString() }}</h2>
+      <ng-container *ngFor="let viewer of perf.viewers">
+        <div class="viewer">
+          <h4>{{ viewer.id }}</h4>
+          <div class="data">
+            <ng-container *ngFor="let action of viewer.actions">
+              <p>
+                <span>action: {{ action.trackId }}</span> |
+                <span>time: {{ action.timestamp.toFormat('mm:ss.S') }}</span>
+                |
+                <span>held: {{ action.held.toFormat('mm:ss.S') }}</span>
+              </p>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
 </div>
