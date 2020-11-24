@@ -36,7 +36,7 @@ export class ScheduleService {
     // DateTime.local().minus(
     //   this.EVENT_DURATION.minus(Duration.fromObject({ seconds: 30 })),
     // ),
-    DateTime.local().plus(Duration.fromObject({ seconds: 5 })),
+    DateTime.local().minus(Duration.fromObject({ minutes: 4, seconds: 45 })),
   ]
 
   getNextEvent(): DateTime {
