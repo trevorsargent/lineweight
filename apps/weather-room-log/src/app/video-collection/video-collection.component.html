@@ -12,4 +12,9 @@
   </ng-container>
 </div>
 
-<video [src]="currentVideo.src" controls></video>
+<video
+  [src]="currentVideo.src"
+  controls
+  oncontextmenu="return false"
+  controlslist="nodownload"
+></video>
