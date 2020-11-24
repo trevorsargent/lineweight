@@ -33,9 +33,9 @@ export class ScheduleService {
 
   private events: Schedule = [
     ...this.showRun,
-    DateTime.local().minus(
-      this.EVENT_DURATION.minus(Duration.fromObject({ seconds: 30 })),
-    ),
+    // DateTime.local().minus(
+    //   this.EVENT_DURATION.minus(Duration.fromObject({ seconds: 30 })),
+    // ),
     // DateTime.local().plus(Duration.fromObject({ seconds: 30 })),
   ]
 
