@@ -13,6 +13,7 @@ import { DateTime } from 'luxon'
 import { TrackCommand, TrackData } from './video-track.types'
 import { Observable, Subject } from 'rxjs'
 import { ScheduleService } from '../services/schedule.service'
+import { TrackId } from '../app.tracks'
 
 @Component({
   selector: 'app-video-track',
@@ -31,7 +32,7 @@ export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
   src: string
 
   @Input()
-  id: string
+  id: TrackId
 
   @Input()
   commands: Observable<TrackCommand>
