@@ -25,6 +25,12 @@
       <a [routerLink]="['/info']">click here> </a>
     </span>
   </div>
+
+  <div *ngIf="isCaptionsOn" class="captions">
+    <div class="wrap">
+      <span [@enterAnimation]>{{ captions$ | async }}</span>
+    </div>
+  </div>
   <ng-container *ngFor="let track of tracks; trackBy: trackBy">
     <app-video-track
       [activeTrackId]="activeTrackId"

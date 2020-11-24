@@ -8,9 +8,10 @@ import {
   ViewChild,
 } from '@angular/core'
 import { DateTime } from 'luxon'
-import { interval, Subject } from 'rxjs'
+import { interval, Observable, Subject } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
-import { tracks } from '../app.tracks'
+import { TrackId, tracks } from '../app.tracks'
+import { CaptionService } from '../services/captions.service'
 import { LogService } from '../services/log.service'
 import { ScheduleService } from '../services/schedule.service'
 import { StateService } from '../services/state.service'
@@ -38,11 +39,14 @@ export class SurfaceComponent implements OnInit {
     public state: StateService,
     private schedule: ScheduleService,
     private log: LogService,
+    private captions: CaptionService,
   ) {}
 
   timeToNextShow = interval(100).pipe(
     map((_) => this.schedule.getNextEvent()?.diffNow().toFormat('hh:mm:ss')),
   )
+
+  captions$: Observable<string>
 
   isFullscreen: boolean = false
 
@@ -54,7 +58,7 @@ export class SurfaceComponent implements OnInit {
 
   tracksReady = new Map<string, boolean>()
 
-  activeTrackId: string = null
+  activeTrackId: TrackId = null
 
   public postShow: boolean = false
 
@@ -87,10 +91,17 @@ export class SurfaceComponent implements OnInit {
     this.publishEvent({ command: 'SYNC', time: currentTime ?? 0 })
   }
 
-  activateTrack(trackId: string) {
+  activateTrack(trackId: TrackId) {
     this.log.logAction(trackId)
-
     this.activeTrackId = trackId
+    this.refreshCaptions()
+  }
+
+  refreshCaptions() {
+    this.captions$ = this.captions.getLinesObs(
+      this.activeTrackId,
+      this.schedule.getCurrentEventTimeCode(),
+    )
   }
 
   private publishEvent(command: TrackCommand) {
@@ -129,6 +140,7 @@ export class SurfaceComponent implements OnInit {
       this.isCaptionsOn = false
     } else {
       this.isCaptionsOn = true
+      this.refreshCaptions()
     }
   }
 

@@ -3,15 +3,16 @@ import { Injectable } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 
 import { DateTime } from 'luxon'
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
+import { map, timestamp } from 'rxjs/operators'
 
 import * as uuid from 'uuid'
 import { ScheduleService } from './schedule.service'
 
 @Injectable({ providedIn: 'root' })
 export class LogService {
-  entries$: Observable<any[]>
-  private token: string
+  public performances$: Subject<PerformanceSet>
+  private userId: string
 
   private readonly COLLECTION = 'preview'
 
@@ -21,16 +22,54 @@ export class LogService {
   ) {
     const WR_TOKEN = 'wr-log-id'
 
-    this.token = localStorage.getItem(WR_TOKEN) ?? uuid.v4()
-    localStorage.setItem(WR_TOKEN, this.token)
+    this.userId = localStorage.getItem(WR_TOKEN) ?? uuid.v4()
+    localStorage.setItem(WR_TOKEN, this.userId)
+    this.performances$ = new Subject()
+
+    this.firestore.database
+      .ref(this.COLLECTION)
+      .on('value', (snap) => this.performances$.next(snap.val()))
   }
 
   logAction(trackId: string) {
-    this.firestore.list(this.COLLECTION).push({
+    const action: ActionLog = {
       trackId,
-      event: this.schedule.getCurrentEvent().toISO(),
-      timestamp: DateTime.local().toISO(),
-      userId: this.token,
-    })
+      timestamp: DateTime.local(),
+    }
+
+    this.firestore.database
+      .ref(
+        `${this.COLLECTION}/${this.schedule.getCurrentEvent().toMillis()}/${
+          this.userId
+        }`,
+      )
+      .push(actionToData(action))
   }
+}
+
+const actionToData = ({ timestamp, trackId }: ActionLog): ActionLogData => ({
+  trackId,
+  timestamp: timestamp.toISO(),
+})
+
+interface ActionLogData {
+  trackId: string
+  timestamp: string
+}
+
+export interface ActionLog {
+  trackId: string
+  timestamp: DateTime
+}
+
+export interface PerformanceSet {
+  [perfStateMilis: number]: PerformanceData
+}
+
+export interface PerformanceData {
+  [userId: string]: ViewerData
+}
+
+export interface ViewerData {
+  [index: string]: ActionLogData
 }
