@@ -11,6 +11,7 @@ import { DateTime } from 'luxon'
 import { interval, Subject } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
 import { tracks } from '../app.tracks'
+import { LogService } from '../services/log.service'
 import { ScheduleService } from '../services/schedule.service'
 import { StateService } from '../services/state.service'
 import { TrackCommand, TrackData } from '../video-track/video-track.types'
@@ -33,7 +34,11 @@ import { TrackCommand, TrackData } from '../video-track/video-track.types'
   ],
 })
 export class SurfaceComponent implements OnInit {
-  constructor(public state: StateService, private schedule: ScheduleService) {}
+  constructor(
+    public state: StateService,
+    private schedule: ScheduleService,
+    private log: LogService,
+  ) {}
 
   timeToNextShow = interval(100).pipe(
     map((_) => this.schedule.getNextEvent()?.diffNow().toFormat('hh:mm:ss')),
@@ -83,6 +88,8 @@ export class SurfaceComponent implements OnInit {
   }
 
   activateTrack(trackId: string) {
+    this.log.logAction(trackId)
+
     this.activeTrackId = trackId
   }
 

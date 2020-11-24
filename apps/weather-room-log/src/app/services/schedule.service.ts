@@ -45,7 +45,7 @@ export class ScheduleService {
       .find((a) => a.diffNow().as('milliseconds') > 0)
   }
 
-  private getCurrentEvent(): DateTime {
+  getCurrentEvent(): DateTime {
     return this.events
       .sort((a, b) => a.diff(b).valueOf())
       .find((a) => {

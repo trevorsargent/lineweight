@@ -35,6 +35,7 @@
     "@angular/compiler": "^10.2.0",
     "@angular/compiler-cli": "^10.2.0",
     "@angular/core": "^10.2.0",
+    "@angular/fire": "^6.1.1",
     "@angular/forms": "^10.2.0",
     "@angular/material": "^10.2.7",
     "@angular/platform-browser": "^10.2.0",
@@ -46,6 +47,7 @@
     "@nrwl/cli": "^10.3.1",
     "@nrwl/workspace": "^10.3.1",
     "@serialport/parser-readline": "^9.0.1",
+    "firebase": "^8.1.1",
     "luxon": "^1.25.0",
     "node-osc": "^5.2.1",
     "obs-websocket-js": "^4.0.2",
@@ -54,6 +56,7 @@
     "rxjs": "^6.6.3",
     "serialport": "^9.0.2",
     "typescript": "^4.0.3",
+    "uuid": "^8.3.1",
     "zone.js": "^0.11.2"
   },
   "devDependencies": {
@@ -68,6 +71,7 @@
     "@types/luxon": "^1.25.0",
     "@types/ramda": "^0.27.30",
     "@types/serialport": "^8.0.1",
+    "@types/uuid": "^8.3.0",
     "jest": "26.2.2",
     "pkg": "^4.4.9",
     "ts-jest": "26.1.4",
