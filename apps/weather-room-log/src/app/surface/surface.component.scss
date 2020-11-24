@@ -25,7 +25,7 @@
   a {
     position: relative;
     top: 2rem;
-    left: 4.8rem;
+    left: 2.2rem;
     cursor: pointer;
   }
 }
@@ -60,6 +60,13 @@
 
 .next {
   @include fullWindow();
+
+  span {
+    position: absolute;
+    bottom: 5rem;
+    right: 5rem;
+  }
+
   a {
     color: currentColor;
     font-weight: 100;

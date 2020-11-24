@@ -9,6 +9,11 @@ export class ScheduleService {
     seconds: 52,
   })
 
+  public readonly PERFORMANCE_DURATION: Duration = Duration.fromObject({
+    minutes: 23,
+    seconds: 32,
+  })
+
   private constantInfo = {
     hour: 19,
     minute: 31,
@@ -26,7 +31,13 @@ export class ScheduleService {
     .map((_, idx) => idx)
     .map((n) => this.opening.plus(Duration.fromObject({ days: n })))
 
-  private events: Schedule = this.showRun
+  private events: Schedule = [
+    ...this.showRun,
+    DateTime.local().minus(
+      this.EVENT_DURATION.minus(Duration.fromObject({ seconds: 30 })),
+    ),
+    // DateTime.local().plus(Duration.fromObject({ seconds: 30 })),
+  ]
 
   getNextEvent(): DateTime {
     return this.events
@@ -47,6 +58,32 @@ export class ScheduleService {
 
   getCurrentEventTimeCode(): number | undefined {
     return Math.abs(this.getCurrentEvent()?.diffNow().as('seconds'))
+  }
+
+  getTimeToNextShowMilis(): number {
+    return Math.abs(this.getNextEvent().diffNow().as('milliseconds'))
+  }
+
+  getTimeToPostShowMilis(): number {
+    const t = Math.abs(
+      this.getCurrentEvent()
+        .plus(this.PERFORMANCE_DURATION)
+        .diffNow()
+        .as('milliseconds'),
+    )
+    console.log('time to post show', t)
+    return t
+  }
+
+  getTimeToResetMilis(): number {
+    const t = Math.abs(
+      this.getCurrentEvent()
+        .plus(this.EVENT_DURATION)
+        .diffNow()
+        .as('milliseconds'),
+    )
+    console.log('time to reset', t)
+    return t
   }
 }
 
