@@ -31,13 +31,7 @@ export class ScheduleService {
     .map((_, idx) => idx)
     .map((n) => this.opening.plus(Duration.fromObject({ days: n })))
 
-  private events: Schedule = [
-    ...this.showRun,
-    // DateTime.local().minus(
-    //   this.EVENT_DURATION.minus(Duration.fromObject({ seconds: 30 })),
-    // ),
-    DateTime.local().plus(Duration.fromObject({ seconds: 10 })),
-  ]
+  private events: Schedule = [...this.showRun]
 
   getNextEvent(): DateTime {
     return this.events
