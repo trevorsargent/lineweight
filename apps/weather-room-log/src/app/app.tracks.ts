@@ -3,6 +3,15 @@ export enum TrackId {
   REBECCA = 'Rebecca',
   CRISTI = 'Cristi',
   JACOB = 'Jacob',
+
+  // Youth
+
+  AMELIA = 'Amelia',
+  ARJUN = 'Arjun',
+  DELLA = 'Della',
+  ELIJAH = 'Elijah',
+  JAMIE = 'Jamie',
+  TAYLOR = 'Taylor',
 }
 export const tracks: TrackData[] = [
   {

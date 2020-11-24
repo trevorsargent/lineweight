@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { TrackId } from '../app.tracks'
 import { TrackData } from '../video-track/video-track.types'
 
 @Component({
@@ -21,32 +22,32 @@ export class VideoCollectionComponent implements OnInit {
 
   videos: TrackData[] = [
     {
-      id: 'Amelia',
+      id: TrackId.AMELIA,
       src:
         'https://storage.googleapis.com/wr-youth-predictions/Amelia%20Dusevoir.mov',
     },
     {
-      id: 'Arjun',
+      id: TrackId.ARJUN,
       src:
         'https://storage.googleapis.com/wr-youth-predictions/Arjun%20Pai.mp4',
     },
     {
-      id: 'Della',
+      id: TrackId.DELLA,
       src:
         'https://storage.googleapis.com/wr-youth-predictions/Della%20Cosloy.mp4',
     },
     {
-      id: 'Elijah',
+      id: TrackId.ELIJAH,
       src:
         'https://storage.googleapis.com/wr-youth-predictions/Elijah%20Castillo.mp4',
     },
     {
-      id: 'Jamie',
+      id: TrackId.JAMIE,
       src:
         'https://storage.googleapis.com/wr-youth-predictions/Jamie%20Mack.mp4',
     },
     {
-      id: 'Taylor',
+      id: TrackId.TAYLOR,
       src:
         'https://storage.googleapis.com/wr-youth-predictions/Taylor%20Putzek.mp4',
     },
