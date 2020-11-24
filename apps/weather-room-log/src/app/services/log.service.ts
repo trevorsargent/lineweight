@@ -13,7 +13,7 @@ export class LogService {
   entries$: Observable<any[]>
   private token: string
 
-  private readonly COLLECTION = 'dev'
+  private readonly COLLECTION = 'preview'
 
   constructor(
     private firestore: AngularFireDatabase,
