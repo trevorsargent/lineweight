@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 
 import { DateTime } from 'luxon'
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { map, timestamp } from 'rxjs/operators'
 
 import * as uuid from 'uuid'
@@ -11,7 +11,7 @@ import { ScheduleService } from './schedule.service'
 
 @Injectable({ providedIn: 'root' })
 export class LogService {
-  public actions$: Observable<ActionLog[]>
+  public performances$: Subject<PerformanceSet>
   private userId: string
 
   private readonly COLLECTION = 'dev'
@@ -24,58 +24,52 @@ export class LogService {
 
     this.userId = localStorage.getItem(WR_TOKEN) ?? uuid.v4()
     localStorage.setItem(WR_TOKEN, this.userId)
-    this.actions$ = this.firestore
-      .list(this.COLLECTION)
-      .valueChanges()
-      .pipe(map((x: ActionLogData[]) => x.map(dataToAction)))
+    this.performances$ = new Subject()
+
+    this.firestore.database
+      .ref(this.COLLECTION)
+      .on('value', (snap) => this.performances$.next(snap.val()))
   }
 
   logAction(trackId: string) {
     const action: ActionLog = {
       trackId,
-      event: this.schedule.getCurrentEvent(),
       timestamp: DateTime.local(),
-      userId: this.userId,
     }
 
-    this.firestore.list(this.COLLECTION).push(actionToData(action))
+    this.firestore.database
+      .ref(
+        `${this.COLLECTION}/${this.schedule.getCurrentEvent().toMillis()}/${
+          this.userId
+        }`,
+      )
+      .push(actionToData(action))
   }
 }
 
-const actionToData = ({
-  event,
-  timestamp,
-  trackId,
-  userId,
-}: ActionLog): ActionLogData => ({
-  userId,
+const actionToData = ({ timestamp, trackId }: ActionLog): ActionLogData => ({
   trackId,
   timestamp: timestamp.toISO(),
-  event: event.toISO(),
 })
 
-const dataToAction = ({
-  event,
-  timestamp,
-  userId,
-  trackId,
-}: ActionLogData): ActionLog => ({
-  trackId,
-  userId,
-  timestamp: DateTime.fromISO(timestamp),
-  event: DateTime.fromISO(event),
-})
-
-export interface ActionLogData {
+interface ActionLogData {
   trackId: string
-  event: string
   timestamp: string
-  userId: string
 }
 
-export interface ActionLog {
+interface ActionLog {
   trackId: string
-  event: DateTime
   timestamp: DateTime
-  userId: string
+}
+
+interface PerformanceSet {
+  [perfStateMilis: number]: Performance
+}
+
+interface Performance {
+  [userId: string]: Viewer
+}
+
+interface Viewer {
+  [index: string]: ActionLogData
 }
