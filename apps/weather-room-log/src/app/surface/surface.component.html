@@ -1,13 +1,28 @@
 <div #surface class="surface" [class.invert]="state.started">
-  <div class="countdown" *ngIf="!schedule.getCurrentEventTimeCode()">
+  <div class="loading" *ngIf="!state.loaded" [@enterAnimation]>
+    <div class="wrap">
+      <span>loading</span>
+    </div>
+  </div>
+  <div
+    class="starting"
+    *ngIf="state.loaded && !state.started"
+    [@enterAnimation]
+  >
+    <div class="wrap">
+      <a (click)="start()">start ></a>
+    </div>
+  </div>
+  <div class="countdown" *ngIf="state.preshow">
     <div class="wrap" *ngIf="{ value: timeToNextShow | async } as time">
       <span>{{ time.value }}</span>
     </div>
   </div>
-  <div *ngIf="schedule.getCurrentEventTimeCode() > 1412" class="next">
-    <a href="/next"
-      >for visions of the future and weather room apendicies... click here>
-    </a>
+  <div class="next" *ngIf="postShow" [@enterAnimation]>
+    <span>
+      for visions of the future and weather room apendicies...
+      <a [routerLink]="['/info']">click here> </a>
+    </span>
   </div>
   <ng-container *ngFor="let track of tracks; trackBy: trackBy">
     <app-video-track
@@ -19,8 +34,14 @@
     ></app-video-track>
   </ng-container>
   <app-controls
+    *ngIf="state.showControls"
+    [@enterAnimation]
     [tracks]="tracks"
     (activeTrack)="activateTrack($event)"
-    (_fullscreen)="openFullscreen()"
+    [isCaptionsOn]="isCaptionsOn"
+    [isFullscreen]="isFullscreen"
+    [activeTrackId]="activeTrackId"
+    (_fullscreen)="handleFullscreen()"
+    (_captions)="handleCaptions()"
   ></app-controls>
 </div>

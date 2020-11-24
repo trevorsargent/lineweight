@@ -15,33 +15,30 @@
   box-sizing: border-box;
 }
 
-.wrap:hover {
-  button {
-    opacity: 1;
-  }
-}
-
 .buttons {
   grid-column: 2;
   display: grid;
 
-  grid-template-columns: repeat(3, 1fr) 2fr;
+  grid-template-columns: repeat(3, 1fr) 2fr 1fr 1fr;
   grid-column-gap: 10px;
 }
 
-button {
+a {
+  font-size: smaller;
+  opacity: 0.3;
   transition: opacity 1s;
-  border: none;
-  border-radius: 3px;
-  background: rgba($color: #000000, $alpha: 0.5);
   color: #eee;
   padding: 10px;
-  opacity: 0.3;
   transition: all 0.5s;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #ccc;
-  color: #222;
+.wrap:hover {
+  a {
+    opacity: 1;
+  }
+}
+
+.active {
+  text-decoration: underline;
 }

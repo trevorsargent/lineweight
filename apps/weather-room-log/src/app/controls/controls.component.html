@@ -1,12 +1,17 @@
 <div class="wrap">
-  <div *ngIf="state.started && state.active" class="buttons">
-    <button
+  <div class="buttons">
+    <a
       *ngFor="let track of tracks; trackBy: trackBy"
       (click)="select(track.id)"
+      [class.active]="track.id === activeTrackId"
     >
       {{ track.id }}
-    </button>
+    </a>
 
-    <button (click)="fullscreen()">fullscreen</button>
+    <div></div>
+    <a [class.active]="isCaptionsOn" (click)="captions()">captions</a>
+    <a (click)="fullscreen()">
+      <span *ngIf="isFullscreen">exit </span>fullscreen</a
+    >
   </div>
 </div>

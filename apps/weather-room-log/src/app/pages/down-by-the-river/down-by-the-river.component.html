@@ -1,13 +1,3 @@
-<div class="loading" *ngIf="!state.loaded" [@enterAnimation]>
-  <div class="wrap">
-    <span>loading</span>
-  </div>
-</div>
-<div class="starting" *ngIf="state.loaded && !state.started" [@enterAnimation]>
-  <div class="wrap">
-    <a (click)="start()">start ></a>
-  </div>
-</div>
 <app-surface></app-surface>
 <!-- <div class="spacer"></div> -->
 
