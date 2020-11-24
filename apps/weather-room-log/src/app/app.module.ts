@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { PaperComponent } from './pages/paper/paper.component'
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireDatabaseModule } from '@angular/fire/database'
+import { FlocksComponent } from './pages/flocks/flocks.component'
 
 const config = {
   apiKey: 'AIzaSyCfWYw0YheqCx_XQ1G7gh1bux148Qwy3gg',
@@ -34,6 +35,7 @@ const config = {
     VideoCollectionComponent,
     PaperComponent,
     NavigationComponent,
+    FlocksComponent,
   ],
   imports: [
     BrowserModule,
