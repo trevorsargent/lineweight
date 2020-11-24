@@ -78,9 +78,8 @@ export class VideoTrackComponent implements OnInit, OnDestroy, TrackData {
       this.notifyLoaded()
     }
 
-    // this.player.autoplay = true
     this.player.muted = true
-    this.player.loop = true
+    this.player.loop = false
   }
 
   get isActiveTrack() {

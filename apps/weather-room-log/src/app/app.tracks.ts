@@ -4,7 +4,7 @@ export const tracks: TrackData[] = [
   {
     id: 'Rebecca',
     src:
-      'https://storage.googleapis.com/wr-down-by-the-river/20201126/CRISTI.mp4',
+      'https://storage.googleapis.com/wr-down-by-the-river/20201126/REBECCA.mp4',
   },
   {
     id: 'Cristi',

@@ -1,7 +1,9 @@
+import { trigger, transition, style, animate } from '@angular/animations'
 import {
   Component,
   ElementRef,
   HostListener,
+  Input,
   OnInit,
   ViewChild,
 } from '@angular/core'
@@ -17,13 +19,29 @@ import { TrackCommand, TrackData } from '../video-track/video-track.types'
   selector: 'app-surface',
   templateUrl: './surface.component.html',
   styleUrls: ['./surface.component.scss'],
+  animations: [
+    trigger('enterAnimation', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('1000ms', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        style({ opacity: 1 }),
+        animate('1000ms', style({ opacity: 0 })),
+      ]),
+    ]),
+  ],
 })
 export class SurfaceComponent implements OnInit {
-  constructor(public state: StateService, public schedule: ScheduleService) {}
+  constructor(public state: StateService, private schedule: ScheduleService) {}
 
   timeToNextShow = interval(100).pipe(
-    map((_) => this.schedule.getNextEvent().diffNow().toFormat('hh:mm:ss')),
+    map((_) => this.schedule.getNextEvent()?.diffNow().toFormat('hh:mm:ss')),
   )
+
+  isFullscreen: boolean = false
+
+  isCaptionsOn: boolean = false
 
   tracks: TrackData[] = tracks
 
@@ -32,6 +50,8 @@ export class SurfaceComponent implements OnInit {
   tracksReady = new Map<string, boolean>()
 
   activeTrackId: string = null
+
+  public postShow: boolean = false
 
   @ViewChild('surface', { static: true }) surface: ElementRef
 
@@ -43,7 +63,9 @@ export class SurfaceComponent implements OnInit {
     this.tracksReady.set(trackId, true)
     if (Array.from(this.tracksReady.values()).every((v) => v)) {
       this.state.notifyLoaded()
-      this.state.registerStartHook(this.activate.bind(this))
+      this.state.registerActivateHook(this.activate.bind(this))
+      this.state.registerPostShowHook(this.showPostShow.bind(this))
+      this.state.registerResetHook(this.reset.bind(this))
     }
   }
 
@@ -72,6 +94,37 @@ export class SurfaceComponent implements OnInit {
     return track.id
   }
 
+  showPostShow() {
+    this.postShow = true
+  }
+
+  reset() {
+    this.activateTrack(null)
+    this.postShow = false
+  }
+
+  start() {
+    this.state.notifyStarted()
+  }
+
+  handleFullscreen() {
+    if (this.isFullscreen) {
+      this.closeFullscreen()
+      this.isFullscreen = false
+    } else {
+      this.openFullscreen()
+      this.isFullscreen = true
+    }
+  }
+
+  handleCaptions() {
+    if (this.isCaptionsOn) {
+      this.isCaptionsOn = false
+    } else {
+      this.isCaptionsOn = true
+    }
+  }
+
   openFullscreen() {
     // Use this.divRef.nativeElement here to request fullscreen
     const elem = this.surface.nativeElement
@@ -84,6 +137,18 @@ export class SurfaceComponent implements OnInit {
       elem.mozRequestFullScreen()
     } else if (elem.webkitRequestFullscreen) {
       elem.webkitRequestFullscreen()
+    }
+  }
+
+  closeFullscreen() {
+    if (document.exitFullscreen) {
+      document.exitFullscreen()
+    } else if ((document as any).webkitExitFullscreen) {
+      /* Safari */
+      ;(document as any).webkitExitFullscreen()
+    } else if ((document as any).msExitFullscreen) {
+      /* IE11 */
+      ;(document as any).msExitFullscreen()
     }
   }
 }
