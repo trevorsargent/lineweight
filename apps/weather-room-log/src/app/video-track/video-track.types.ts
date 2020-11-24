@@ -1,5 +1,7 @@
+import { TrackId } from '../app.tracks'
+
 export interface TrackData {
-  id: string
+  id: TrackId
   src: string
 }
 
