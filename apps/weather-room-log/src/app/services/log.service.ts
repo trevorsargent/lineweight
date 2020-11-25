@@ -44,6 +44,7 @@ export class LogService {
         }`,
       )
       .push(actionToData(action))
+      .catch(console.error)
   }
 }
 
