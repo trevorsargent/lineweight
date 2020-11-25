@@ -28,7 +28,9 @@
 
   <div *ngIf="isCaptionsOn" class="captions">
     <div class="wrap">
-      <span [@enterAnimation]>{{ captions$ | async }}</span>
+      <span [hidden]="(captions$ | async)?.length < 1">{{
+        captions$ | async
+      }}</span>
     </div>
   </div>
   <ng-container *ngFor="let track of tracks; trackBy: trackBy">
