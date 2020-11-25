@@ -3,6 +3,7 @@ import { Duration } from 'luxon'
 import { TrackId } from '../app.tracks'
 
 import r from '../../assets/rebecca.captions.json'
+import c from '../../assets/cristi.captions.json'
 import { from, Observable } from 'rxjs'
 
 @Injectable({ providedIn: 'root' })
@@ -12,6 +13,7 @@ export class CaptionService {
       id: TrackId.REBECCA,
       lines: processCaptions(r),
     },
+    { id: TrackId.CRISTI, lines: processCaptions(c) },
   ]
 
   constructor() {}
