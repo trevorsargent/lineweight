@@ -1,15 +1,7 @@
 import { trigger, transition, style, animate } from '@angular/animations'
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core'
-import { DateTime } from 'luxon'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { interval, Observable, Subject } from 'rxjs'
-import { map, tap } from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 import { TrackId, tracks } from '../app.tracks'
 import { CaptionService } from '../services/captions.service'
 import { LogService } from '../services/log.service'
@@ -84,6 +76,9 @@ export class SurfaceComponent implements OnInit {
     this.publishEvent({ command: 'PLAY' })
     this.syncAll()
     this.activateTrack(tracks[active].id)
+    this.captions$ = this.captions.getLinesObs()
+    this.refreshCaptions()
+    setInterval(() => this.refreshCaptions(), 1000)
   }
 
   syncAll() {
@@ -98,7 +93,7 @@ export class SurfaceComponent implements OnInit {
   }
 
   refreshCaptions() {
-    this.captions$ = this.captions.getLinesObs(
+    this.captions.syncCaptions(
       this.activeTrackId,
       this.schedule.getCurrentEventTimeCode(),
     )
