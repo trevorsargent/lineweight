@@ -49,7 +49,7 @@ export class ScheduleService {
       .find((a) => {
         const diffNow = a?.diffNow().as('seconds')
         return (
-          diffNow < 0 && Math.abs(diffNow) < this.EVENT_DURATION.as('seconds')
+          diffNow < 1 && Math.abs(diffNow) < this.EVENT_DURATION.as('seconds')
         )
       })
   }
