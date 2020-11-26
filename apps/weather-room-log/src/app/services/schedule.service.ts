@@ -36,7 +36,7 @@ export class ScheduleService {
     // DateTime.local().minus(
     //   this.EVENT_DURATION.minus(Duration.fromObject({ seconds: 30 })),
     // ),
-    DateTime.local().plus(Duration.fromObject({ seconds: 10 })),
+    DateTime.local().plus(Duration.fromObject({ seconds: 30 })),
   ]
 
   getNextEvent(): DateTime {
@@ -51,7 +51,7 @@ export class ScheduleService {
       .find((a) => {
         const diffNow = a?.diffNow().as('seconds')
         return (
-          diffNow < 0 && Math.abs(diffNow) < this.EVENT_DURATION.as('seconds')
+          diffNow < 1 && Math.abs(diffNow) < this.EVENT_DURATION.as('seconds')
         )
       })
   }
