@@ -1,0 +1,35 @@
+@mixin actionBackground($red: 0, $green: 0, $blue: 0) {
+  $color: rgb($red, $green, $blue);
+
+  background: linear-gradient(90deg, rgba($color, 0.7) 0%, rgba($color, 0) 95%);
+
+  border-left: solid 0.1rem $color;
+}
+
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+// actions stack sideways
+.actions {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.pink {
+  @include actionBackground(255, 0, 255);
+}
+
+.cyan {
+  @include actionBackground(0, 255, 255);
+}
+
+.yellow {
+  @include actionBackground(255, 255, 0);
+}
+
+.stretch {
+  flex: 1 1 auto;
+}

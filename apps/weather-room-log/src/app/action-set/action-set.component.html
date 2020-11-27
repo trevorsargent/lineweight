@@ -1,0 +1,12 @@
+<div class="actions">
+  <ng-container *ngFor="let action of actions">
+    <div
+      class="action"
+      [class.yellow]="action.trackId === TrackId.REBECCA"
+      [class.cyan]="action.trackId === TrackId.CRISTI"
+      [class.pink]="action.trackId === TrackId.JACOB"
+      [style.width]="action.width && action.width + '%'"
+      [class.stretch]="!action.width"
+    ></div>
+  </ng-container>
+</div>

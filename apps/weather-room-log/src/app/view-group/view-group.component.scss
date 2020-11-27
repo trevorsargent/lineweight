@@ -1,0 +1,69 @@
+$border: 1px solid #ccc;
+
+.group {
+  position: relative;
+  header {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 50% auto;
+  }
+}
+
+.views {
+  position: relative;
+  transition: all 0.5s;
+  border-top: $border;
+  border-bottom: $border;
+  overflow: scroll;
+
+  &.limit-height {
+    max-height: 20rem;
+  }
+}
+
+.view {
+  position: absolute;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 4rem;
+  min-height: 4rem;
+
+  mix-blend-mode: multiply;
+
+  transition: top 0.5s, height 0.5s;
+
+  &.stacked {
+    height: 8rem;
+  }
+
+  .label {
+    width: 21rem;
+    transition: width 0.5s, margin 0.5s, opacity 0.5s;
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    span {
+      font-size: 1.5rem;
+      font-weight: lighter;
+      vertical-align: baseline;
+      margin-right: 1rem;
+    }
+
+    &.stacked {
+      width: 0;
+      margin-right: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+  }
+}
