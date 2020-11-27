@@ -81,6 +81,10 @@ export class LogService {
       timestamp: DateTime.local(),
     }
 
+    if (!this.schedule.getCurrentEvent()) {
+      return
+    }
+
     this.firestore.database
       .ref(
         `${this.COLLECTION}/${this.schedule.getCurrentEvent().toMillis()}/${
