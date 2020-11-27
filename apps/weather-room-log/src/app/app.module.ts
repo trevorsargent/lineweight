@@ -14,8 +14,10 @@ import { PaperComponent } from './pages/paper/paper.component'
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireDatabaseModule } from '@angular/fire/database'
 import { FlocksComponent } from './pages/flocks/flocks.component'
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'
 import { ToggleComponent } from './toggle/toggle.component'
+import { ViewerSummaryComponent } from './viewer-summary/viewer-summary.component'
+import { ActionSetComponent } from './action-set/action-set.component'
 
 const config = {
   apiKey: 'AIzaSyCfWYw0YheqCx_XQ1G7gh1bux148Qwy3gg',
@@ -39,6 +41,8 @@ const config = {
     NavigationComponent,
     FlocksComponent,
     ToggleComponent,
+    ViewerSummaryComponent,
+    ActionSetComponent,
   ],
   imports: [
     CommonModule,

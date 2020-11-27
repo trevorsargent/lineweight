@@ -3,7 +3,13 @@ import { Component, OnInit } from '@angular/core'
 import { DateTime, Duration } from 'luxon'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
-import { LogService, PerformanceData } from '../../services/log.service'
+import {
+  Action,
+  LogService,
+  PerformanceData,
+  Viewer,
+  Performance,
+} from '../../services/log.service'
 import faker from 'faker'
 import { TrackId } from '../../app.tracks'
 import { ScheduleService } from '../../services/schedule.service'
@@ -110,22 +116,3 @@ export class FlocksComponent implements OnInit {
 
 const hashCode = (s) =>
   s.split('').reduce((a, b) => ((a << 5) - a + b.charCodeAt(0)) | 0, 0)
-
-interface Performance {
-  id: string
-  startTime: DateTime
-  viewers: Viewer[]
-}
-
-interface Viewer {
-  id: string
-  name: string
-  actions: Action[]
-}
-
-interface Action {
-  timestamp: Duration
-  trackId: string
-  held: Duration
-  width: number
-}

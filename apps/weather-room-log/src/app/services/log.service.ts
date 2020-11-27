@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 
-import { DateTime } from 'luxon'
+import { DateTime, Duration } from 'luxon'
 import { Subject } from 'rxjs'
 
 import * as uuid from 'uuid'
@@ -72,4 +72,23 @@ export interface PerformanceData {
 
 export interface ViewerData {
   [index: string]: ActionLogData
+}
+
+export interface Action {
+  timestamp: Duration
+  trackId: string
+  held: Duration
+  width: number
+}
+
+export interface Performance {
+  id: string
+  startTime: DateTime
+  viewers: Viewer[]
+}
+
+export interface Viewer {
+  id: string
+  name: string
+  actions: Action[]
 }
