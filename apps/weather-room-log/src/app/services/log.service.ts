@@ -31,8 +31,7 @@ export class LogService {
     localStorage.setItem(WR_TOKEN, this.userId)
 
     this.firestore.database
-      // .ref(this.COLLECTION)
-      .ref('preview')
+      .ref(this.COLLECTION)
       .on('value', (snap) => this.data$.next(snap.val()))
   }
 
