@@ -14,7 +14,11 @@ $border: 1px solid #ccc;
   transition: all 0.5s;
   border-top: $border;
   border-bottom: $border;
-  // background-color: black;
+  overflow: scroll;
+
+  &.limit-height {
+    max-height: 20rem;
+  }
 }
 
 .view {
@@ -39,14 +43,20 @@ $border: 1px solid #ccc;
     width: 21rem;
     transition: width 0.5s, margin 0.5s, opacity 0.5s;
     white-space: nowrap;
-
-    &.me {
-      color: #ccc;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     a {
       cursor: pointer;
       text-decoration: underline;
+    }
+
+    span {
+      font-size: 1.5rem;
+      font-weight: lighter;
+      vertical-align: baseline;
+      margin-right: 1rem;
     }
 
     &.stacked {

@@ -23,6 +23,9 @@ export class ViewGroupComponent implements OnInit {
   @Input()
   currentViewerId: string
 
+  @Input()
+  limitHeight: boolean = false
+
   @Output()
   detailViewId = new EventEmitter<string>()
 

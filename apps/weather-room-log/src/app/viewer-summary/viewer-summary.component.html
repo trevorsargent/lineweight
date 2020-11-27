@@ -1,4 +1,8 @@
 <div *ngIf="viewerId" class="detail" [@slide]>
-  <h1>Viewer Detail</h1>
-  <app-view-group [group]="visits$ | async"></app-view-group>
+  <h2 class="title">Viewer Detail</h2>
+  <a (click)="emitClose()">close</a>
+  <app-view-group
+    [group]="visits$ | async"
+    [limitHeight]="true"
+  ></app-view-group>
 </div>

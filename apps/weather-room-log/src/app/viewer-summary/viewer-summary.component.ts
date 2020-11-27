@@ -22,11 +22,11 @@ import { LogService, ViewGroup } from '../services/log.service'
     trigger('slide', [
       transition(':enter', [
         style({ transform: 'translateY(100%)' }),
-        animate('300ms', style({ transform: 'translateY(0)' })),
+        animate('500ms ease-out', style({ transform: 'translateY(0)' })),
       ]),
       transition(':leave', [
         style({ transform: 'translateY(0)' }),
-        animate('300ms', style({ transform: 'translateY(100%)' })),
+        animate('500ms ease-in', style({ transform: 'translateY(100%)' })),
       ]),
     ]),
   ],
