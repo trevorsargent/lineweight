@@ -1,10 +1,8 @@
-import { getLocaleMonthNames } from '@angular/common'
 import { Injectable } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 
 import { DateTime } from 'luxon'
-import { Observable, Subject } from 'rxjs'
-import { map, timestamp } from 'rxjs/operators'
+import { Subject } from 'rxjs'
 
 import * as uuid from 'uuid'
 import { ScheduleService } from './schedule.service'
@@ -27,7 +25,8 @@ export class LogService {
     this.performances$ = new Subject()
 
     this.firestore.database
-      .ref(this.COLLECTION)
+      // .ref(this.COLLECTION)
+      .ref('preview')
       .on('value', (snap) => this.performances$.next(snap.val()))
   }
 

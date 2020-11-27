@@ -3,22 +3,39 @@
 
   <ng-container *ngFor="let perf of performances$ | async">
     <div class="performance">
-      <h2>{{ perf.startTime.toString() }}</h2>
-      <ng-container *ngFor="let viewer of perf.viewers">
-        <div class="viewer">
-          <h4>{{ viewer.id }}</h4>
-          <div class="data">
-            <ng-container *ngFor="let action of viewer.actions">
-              <p>
-                <span>action: {{ action.trackId }}</span> |
-                <span>time: {{ action.timestamp.toFormat('mm:ss.S') }}</span>
-                |
-                <span>held: {{ action.held.toFormat('mm:ss.S') }}</span>
-              </p>
-            </ng-container>
+      <header>
+        <h3 class="time">{{ perf.startTime.toJSDate() | date: 'full' }}</h3>
+        <app-toggle
+          *ngIf="perf.viewers.length > 1"
+          (checkedChange)="setStacked(perf.id, $event)"
+          >stack</app-toggle
+        >
+      </header>
+      <div class="viewers" [style.height.rem]="getViewersHeight(perf)">
+        <ng-container *ngFor="let viewer of perf.viewers; let i = index">
+          <div
+            class="viewer"
+            [class.stacked]="isStacked(perf.id)"
+            [style.top.rem]="getTopOffset(perf.id, i)"
+          >
+            <h4 class="name" [class.stacked]="isStacked(perf.id)">
+              {{ viewer.name }}
+            </h4>
+            <div class="actions">
+              <ng-container *ngFor="let action of viewer.actions">
+                <div
+                  class="action"
+                  [class.yellow]="action.trackId === TrackId.REBECCA"
+                  [class.cyan]="action.trackId === TrackId.CRISTI"
+                  [class.pink]="action.trackId === TrackId.JACOB"
+                  [style.width]="action.width && action.width + '%'"
+                  [class.stretch]="!action.width"
+                ></div>
+              </ng-container>
+            </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
     </div>
   </ng-container>
 </div>
