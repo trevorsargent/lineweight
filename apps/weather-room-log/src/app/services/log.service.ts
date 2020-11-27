@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators'
 import * as uuid from 'uuid'
 import { ScheduleService } from './schedule.service'
 
-import faker from 'faker'
+import { name, seed, random } from 'faker'
 
 @Injectable({ providedIn: 'root' })
 export class LogService {
@@ -94,12 +94,12 @@ export class LogService {
 
   private getAndCacheName(id: string) {
     if (!this.names.has(id)) {
-      faker.seed(hashCode(id))
+      seed(hashCode(id))
       this.names.set(
         id,
-        `${faker.name.firstName()} ${
-          faker.random.boolean() ? faker.name.firstName() : ''
-        } ${faker.name.lastName()}`,
+        `${name.firstName()} ${
+          random.boolean() ? name.firstName() : ''
+        } ${name.lastName()}`,
       )
     }
     return this.names.get(id)
