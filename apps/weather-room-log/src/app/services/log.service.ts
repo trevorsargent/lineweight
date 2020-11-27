@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { AngularFireDatabase } from '@angular/fire/database'
 
 import { DateTime, Duration } from 'luxon'
-import { Observable, Subject } from 'rxjs'
+import { Observable, ReplaySubject, Subject } from 'rxjs'
 import { map } from 'rxjs/operators'
 
 import * as uuid from 'uuid'
@@ -12,10 +12,12 @@ import faker from 'faker'
 
 @Injectable({ providedIn: 'root' })
 export class LogService {
-  public performances$: Subject<PerformanceSet>
+  public data$ = new ReplaySubject<PerformanceSet>()
   private userId: string
 
   names = new Map<string, string>()
+
+  viewerDetailId = new Subject<string>()
 
   private readonly COLLECTION = 'dev'
 
@@ -27,81 +29,52 @@ export class LogService {
 
     this.userId = localStorage.getItem(WR_TOKEN) ?? uuid.v4()
     localStorage.setItem(WR_TOKEN, this.userId)
-    this.performances$ = new Subject()
 
     this.firestore.database
       // .ref(this.COLLECTION)
       .ref('preview')
-      .on('value', (snap) => this.performances$.next(snap.val()))
+      .on('value', (snap) => this.data$.next(snap.val()))
   }
 
-  getPerformances$(): Observable<Performance[]> {
-    return this.performances$.pipe(
-      map((set) => {
-        return Object.entries(set).map(
-          ([startTimeMilis, p]: [string, PerformanceData]): Performance => ({
-            startTime: DateTime.fromMillis(Number.parseInt(startTimeMilis)),
-            id: startTimeMilis,
-            viewers: Object.entries(p).map(
-              ([userId, v]): Viewer => ({
-                id: userId,
-                name: this.getAndCacheName(userId),
-                actions: Object.entries(v)
-                  .map(
-                    ([_, data]): Omit<Action, 'width'> => ({
-                      timestamp: DateTime.fromISO(data.timestamp).diff(
-                        DateTime.fromMillis(Number.parseInt(startTimeMilis)),
-                      ),
-                      trackId: data.trackId,
+  getPerformances$(): Observable<ViewGroup[]> {
+    return this.data$.pipe(
+      map(this.processPerformanceData),
+      map((perfs) =>
+        perfs.map(
+          (perf): ViewGroup => ({
+            name: perf.startTime.toLocaleString(DateTime.DATETIME_FULL),
 
-                      held: (
-                        DateTime.fromISO(
-                          Object.entries(v)
-                            .map(([_, action]) => action)
-                            .sort((b, a) =>
-                              DateTime.fromISO(b.timestamp)
-                                .diff(DateTime.fromISO(a.timestamp))
-                                .as('milliseconds'),
-                            )
-                            .find(
-                              (a) =>
-                                DateTime.fromISO(a.timestamp)
-                                  .diff(DateTime.fromISO(data.timestamp))
-                                  .as('milliseconds') > 0,
-                            )?.timestamp,
-                        ) ?? undefined
-                      ).diff(DateTime.fromISO(data.timestamp)),
-                    }),
-                  )
-                  .map((action) => ({
-                    ...action,
-                    width:
-                      (action.held.as('milliseconds') /
-                        this.schedule.PERFORMANCE_DURATION.as('milliseconds')) *
-                        100 ?? undefined,
-                  })),
-              }),
-            ),
+            views: perf.viewers.map((viewer) => ({
+              actions: viewer.actions,
+              label: { id: viewer.id, text: this.getAndCacheName(viewer.id) },
+            })),
           }),
-        )
-      }),
-    )
-  }
-
-  getVisits$(viewerId: string): Observable<ViewHistory> {
-    return this.getPerformances$().pipe(
-      map(
-        (perfs: Performance[]): ViewHistory => ({
-          id: viewerId,
-          name: this.getAndCacheName(viewerId),
-          viewings: perfs.map((performance) => ({
-            id: performance.id,
-            startTime: performance.startTime,
-            actions: performance.viewers.find((v) => v.id === viewerId).actions,
-          })),
-        }),
+        ),
       ),
     )
+  }
+
+  getViews$(viewerId: string): Observable<ViewGroup> {
+    return this.data$.pipe(
+      map(this.processPerformanceData),
+      map((perfs) => ({
+        name: this.getAndCacheName(viewerId),
+        views: perfs
+          .filter((perf) => perf.viewers.find((v) => v.id === viewerId))
+          .map((performance) => ({
+            id: performance.id,
+            label: {
+              id: performance.startTime.toMillis().toString(),
+              text: performance.startTime.toLocaleString(DateTime.DATETIME_MED),
+            },
+            actions: performance.viewers.find((v) => v.id === viewerId).actions,
+          })),
+      })),
+    )
+  }
+
+  getCurrentViewerId() {
+    return this.userId
   }
 
   logAction(trackId: string) {
@@ -131,6 +104,55 @@ export class LogService {
       )
     }
     return this.names.get(id)
+  }
+
+  processPerformanceData = (ps: PerformanceSet): Performance[] => {
+    return Object.entries(ps).map(
+      ([startTimeMilis, p]: [string, PerformanceData]): Performance => ({
+        id: startTimeMilis,
+        startTime: DateTime.fromMillis(Number.parseInt(startTimeMilis)),
+
+        viewers: Object.entries(p).map(
+          ([userId, v]): Viewer => ({
+            id: userId,
+            actions: Object.entries(v)
+              .map(
+                ([_, data]): Omit<Action, 'width'> => ({
+                  timestamp: DateTime.fromISO(data.timestamp).diff(
+                    DateTime.fromMillis(Number.parseInt(startTimeMilis)),
+                  ),
+                  trackId: data.trackId,
+
+                  held: (
+                    DateTime.fromISO(
+                      Object.entries(v)
+                        .map(([_, action]) => action)
+                        .sort((b, a) =>
+                          DateTime.fromISO(b.timestamp)
+                            .diff(DateTime.fromISO(a.timestamp))
+                            .as('milliseconds'),
+                        )
+                        .find(
+                          (a) =>
+                            DateTime.fromISO(a.timestamp)
+                              .diff(DateTime.fromISO(data.timestamp))
+                              .as('milliseconds') > 0,
+                        )?.timestamp,
+                    ) ?? undefined
+                  ).diff(DateTime.fromISO(data.timestamp)),
+                }),
+              )
+              .map((action) => ({
+                ...action,
+                width:
+                  (action.held.as('milliseconds') /
+                    this.schedule.PERFORMANCE_DURATION.as('milliseconds')) *
+                    100 ?? undefined,
+              })),
+          }),
+        ),
+      }),
+    )
   }
 }
 
@@ -179,14 +201,20 @@ export interface Performance {
 
 export interface Viewer {
   id: string
+  actions: Action[]
+}
+
+export interface ViewGroup {
   name: string
+  views: View[]
+}
+
+export interface View {
+  label: Label
   actions: Action[]
 }
 
-export interface ViewHistory extends Pick<Viewer, 'id' | 'name'> {
-  viewings: Viewing[]
-}
-
-export interface Viewing extends Pick<Performance, 'id' | 'startTime'> {
-  actions: Action[]
+export interface Label {
+  text: string
+  id: string
 }

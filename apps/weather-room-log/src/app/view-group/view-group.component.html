@@ -1,0 +1,32 @@
+<div class="group" *ngIf="!!group">
+  <header>
+    <h3 class="time">{{ group.name }}</h3>
+    <app-toggle
+      *ngIf="group.views.length > 1"
+      [checked]="stacked"
+      (checkedChange)="setStacked($event)"
+      >stack</app-toggle
+    >
+  </header>
+  <div class="views" [style.height.rem]="getViewsHeight()">
+    <ng-container *ngFor="let viewer of group.views; let i = index">
+      <div
+        class="view"
+        [class.stacked]="stacked && group.views.length > 1"
+        [style.top.rem]="getTopOffset(i)"
+      >
+        <h4
+          class="label"
+          [class.stacked]="stacked && group.views.length > 1"
+          [class.me]="isMe(viewer.label.id)"
+        >
+          <a (click)="labelSelect(viewer.label.id)">
+            {{ viewer.label.text }}
+          </a>
+        </h4>
+
+        <app-action-set [actions]="viewer.actions"></app-action-set>
+      </div>
+    </ng-container>
+  </div>
+</div>

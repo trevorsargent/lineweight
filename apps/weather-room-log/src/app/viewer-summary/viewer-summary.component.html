@@ -1,1 +1,4 @@
-<p>viewer-summary works!</p>
+<div *ngIf="viewerId" class="detail" [@slide]>
+  <h1>Viewer Detail</h1>
+  <app-view-group [group]="visits$ | async"></app-view-group>
+</div>

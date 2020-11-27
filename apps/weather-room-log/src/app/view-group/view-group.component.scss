@@ -1,0 +1,59 @@
+$border: 1px solid #ccc;
+
+.group {
+  position: relative;
+  header {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 50% auto;
+  }
+}
+
+.views {
+  position: relative;
+  transition: all 0.5s;
+  border-top: $border;
+  border-bottom: $border;
+  // background-color: black;
+}
+
+.view {
+  position: absolute;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 4rem;
+  min-height: 4rem;
+
+  mix-blend-mode: multiply;
+
+  transition: top 0.5s, height 0.5s;
+
+  &.stacked {
+    height: 8rem;
+  }
+
+  .label {
+    width: 21rem;
+    transition: width 0.5s, margin 0.5s, opacity 0.5s;
+    white-space: nowrap;
+
+    &.me {
+      color: #ccc;
+    }
+
+    a {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    &.stacked {
+      width: 0;
+      margin-right: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+  }
+}

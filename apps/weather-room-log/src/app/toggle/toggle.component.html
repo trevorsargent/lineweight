@@ -1,6 +1,10 @@
 <label class="container"
   ><ng-content class="label-text"></ng-content>
-  <input type="checkbox" (change)="onCheckedChange($event)" />
+  <input
+    [checked]="checked"
+    type="checkbox"
+    (change)="onCheckedChange($event)"
+  />
   <div class="toggle">
     <div class="slide"></div>
   </div>

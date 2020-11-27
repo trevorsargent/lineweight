@@ -17,7 +17,8 @@ import { FlocksComponent } from './pages/flocks/flocks.component'
 import { CommonModule } from '@angular/common'
 import { ToggleComponent } from './toggle/toggle.component'
 import { ViewerSummaryComponent } from './viewer-summary/viewer-summary.component'
-import { ActionSetComponent } from './action-set/action-set.component'
+import { ActionSetComponent } from './action-set/action-set.component';
+import { ViewGroupComponent } from './view-group/view-group.component'
 
 const config = {
   apiKey: 'AIzaSyCfWYw0YheqCx_XQ1G7gh1bux148Qwy3gg',
@@ -43,6 +44,7 @@ const config = {
     ToggleComponent,
     ViewerSummaryComponent,
     ActionSetComponent,
+    ViewGroupComponent,
   ],
   imports: [
     CommonModule,

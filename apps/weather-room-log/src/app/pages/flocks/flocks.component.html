@@ -1,31 +1,18 @@
 <div class="wrap">
   <h1>Flocks</h1>
 
-  <ng-container *ngFor="let perf of performances$ | async">
-    <div class="performance">
-      <header>
-        <h3 class="time">{{ perf.startTime.toJSDate() | date: 'full' }}</h3>
-        <app-toggle
-          *ngIf="perf.viewers.length > 1"
-          (checkedChange)="setStacked(perf.id, $event)"
-          >stack</app-toggle
-        >
-      </header>
-      <div class="viewers" [style.height.rem]="getViewersHeight(perf)">
-        <ng-container *ngFor="let viewer of perf.viewers; let i = index">
-          <div
-            class="viewer"
-            [class.stacked]="isStacked(perf.id)"
-            [style.top.rem]="getTopOffset(perf.id, i)"
-          >
-            <h4 class="name" [class.stacked]="isStacked(perf.id)">
-              {{ viewer.name }}
-            </h4>
+  <div *ngFor="let perf of performances$ | async" class="performance">
+    <app-view-group
+      (detailViewId)="showViewerDetail($event)"
+      [group]="perf"
+      [currentViewerId]="currentViewerId"
+    ></app-view-group>
+  </div>
+</div>
 
-            <app-action-set [actions]="viewer.actions"></app-action-set>
-          </div>
-        </ng-container>
-      </div>
-    </div>
-  </ng-container>
+<div class="viewer-detail">
+  <app-viewer-summary
+    [viewerId]="detailViewerId"
+    (close)="showViewerDetail(null)"
+  ></app-viewer-summary>
 </div>

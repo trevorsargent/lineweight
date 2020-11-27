@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
   templateUrl: './toggle.component.html',
   styleUrls: ['./toggle.component.scss'],
 })
-export class ToggleComponent implements OnInit {
+export class ToggleComponent {
   constructor() {}
 
   @Input()
@@ -19,10 +19,5 @@ export class ToggleComponent implements OnInit {
 
   onCheckedChange(x) {
     this.checkedChange.emit(x.srcElement.checked)
-  }
-
-  ngOnInit(): void {
-    console.log('init')
-    // this.checkedChange.asObservable().subscribe((x) => console.log(x))
   }
 }

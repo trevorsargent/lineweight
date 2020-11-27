@@ -1,0 +1,19 @@
+:host {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+}
+
+.spacer {
+  background-color: rgba(#eee, 0.2);
+}
+
+.detail {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem 3rem;
+  background: #eee;
+  box-shadow: #ddd 0px 0px 20px;
+  padding-bottom: 4rem;
+}
