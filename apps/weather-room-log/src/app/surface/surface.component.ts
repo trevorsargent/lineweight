@@ -63,6 +63,8 @@ export class SurfaceComponent implements OnInit {
 
   @ViewChild('surface', { static: true }) surface: ElementRef
 
+  @ViewChild('audio', { static: true }) audio: ElementRef
+
   ngOnInit(): void {
     tracks.forEach((t) => this.tracksReady.set(t.id, false))
   }
@@ -127,6 +129,7 @@ export class SurfaceComponent implements OnInit {
 
   start() {
     this.state.notifyStarted()
+    this.audio.nativeElement.play()
   }
 
   handleFullscreen() {

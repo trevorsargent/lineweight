@@ -43,11 +43,12 @@
     ></app-video-track>
   </ng-container>
   <audio
+    #audio
     src="
       https://storage.googleapis.com/wr-down-by-the-river/20201126/Weather%20Room%20Pre-Show%20v2.mp3
     "
     [muted]="state.active"
-    autoplay
+    loop
   ></audio>
   <app-controls
     *ngIf="state.showControls"
