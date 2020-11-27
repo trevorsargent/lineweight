@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostListener,
   OnInit,
   ViewChild,
 } from '@angular/core'
@@ -64,6 +65,11 @@ export class SurfaceComponent implements OnInit {
   @ViewChild('surface', { static: true }) surface: ElementRef
 
   @ViewChild('audio', { static: true }) audio: ElementRef
+
+  @HostListener('window:beforeunload', ['$event'])
+  handleBeforeUnload(_) {
+    this.log.logAction(null)
+  }
 
   ngOnInit(): void {
     tracks.forEach((t) => this.tracksReady.set(t.id, false))
