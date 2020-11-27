@@ -21,7 +21,7 @@
       >
         <h4 class="label" [class.stacked]="stacked && group.views.length > 1">
           <a (click)="labelSelect(viewer.label.id)">{{ viewer.label.text }}</a>
-          <span *ngIf="isMe(viewer.label.id)"> &#9786;</span>
+          <span *ngIf="isMe(viewer.label.id)">&#9788;</span>
         </h4>
 
         <app-action-set [actions]="viewer.actions"></app-action-set>
