@@ -89,7 +89,7 @@ export const connections: Connection[] = [
   },
   {
     upstreamId: 2,
-    upstreamOutput: 5,
+    upstreamOutput: 2,
     downstreamId: 3,
     downstreamInput: 6,
   },

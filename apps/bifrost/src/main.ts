@@ -21,9 +21,9 @@ import { switchers } from './switcher'
 const obs = new OBSWebSocket()
 
 const switcherAddresses = [
-  '/dev/tty.usbserial-430',
-  '/dev/tty.usbserial-440',
-  '/dev/tty.usbserial-410',
+  '/dev/tty.usbserial-30',
+  '/dev/tty.usbserial-40',
+  '/dev/tty.usbserial-20',
 ]
 
 const switcherPorts = switcherAddresses.map(
@@ -99,7 +99,7 @@ events
       const cam = Number.parseInt(msg.args[0])
       const downstreamOutput = Number.parseInt(msg.args[1])
 
-      const upstreamId = cam > 8 ? 1 : 2
+      const upstreamId = cam < 8 ? 1 : 2
       const downstreamId = 3
 
       const upstreamInput = cam > 8 ? cam - 8 : cam
