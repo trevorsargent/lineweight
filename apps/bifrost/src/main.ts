@@ -37,7 +37,7 @@ switcherPorts.forEach((port) => {
 })
 
 obs
-  .connect({ address: '10.0.1.123:4444', secure: false })
+  .connect({ address: '192.168.2.3:4444', secure: false })
   .catch((e) => console.error('Could not connect to OBS', e))
 
 obs.on('ConnectionOpened', () => {
@@ -99,7 +99,7 @@ events
       const cam = Number.parseInt(msg.args[0])
       const downstreamOutput = Number.parseInt(msg.args[1])
 
-      const upstreamId = cam < 8 ? 1 : 2
+      const upstreamId = cam <= 8 ? 1 : 2
       const downstreamId = 3
 
       const upstreamInput = cam > 8 ? cam - 8 : cam
